@@ -1,0 +1,53 @@
+input[type=date], input[type=time]
+{
+  width : 100%;
+  padding : 0px 10px;
+  height : 35px;
+  margin : 5px 0px;
+  background: #e9ecf0;
+  border : 0px;
+  border-radius: 5px;
+}
+.resolution-punishments > .row
+{
+  margin-bottom : 20px;
+}
+.custom-designation{
+  display: none;
+}
+.custom-designation.active{
+  display: block;
+}
+.remove-member-btn.disabled, .remove-agenda-btn.disabled, .remove-member-btn.disabled, .remove-resolution-btn.disabled, .remove-note-btn.disabled
+{
+  opacity: .6;
+  cursor: not-allowed;
+}
+.resolution{
+  margin : 50px 0px;
+}
+.overlay > .generate-minutes
+{
+  max-width : 800px;
+  max-height : 500px;
+  overflow-y: scroll;
+}
+#display-meeting-detail, #display-member-list, #display-agenda-list, #display-notes-list
+{
+  margin : 30px 0px;
+}
+.display-agenda{
+  margin : 20px 0px;
+}
+.display-agenda-tile
+{
+  background: #293c76;
+  color : white;
+  padding : 25px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+}
+.display-punishment > p
+{
+  margin : 10px;
+}
