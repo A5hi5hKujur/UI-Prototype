@@ -28,6 +28,15 @@ function checkMemberDesignation(element)
 //------------------------------------------------------------------------------
 
 var meeting_agenda = new Map();
+var minute_json = {
+  meeting_id : undefined,
+  meeting_date : undefined,
+  meeting_time : undefined,
+  meeting_venue : undefined,
+  members : [],
+  agendas : [],
+  notes : []
+}
 
 //--------- Populate All resolution id dropdowns with agenda id ----------------
 function populateAgendaIdDropdown()
@@ -131,10 +140,15 @@ function addRow(row_type)
   }
   else if(row_type == "resolution")
   {
+    // find all agenda ids and then load new resolution
+    var agenda_option = ``;
+    meeting_agenda.forEach((item, key) => {
+      agenda_option += `<option value="${key}">${key}</option>`;
+    });
     var new_row = `<div class="resolution" id="">
       <div class="row">
         <div class="col-sm-12 col-md-2">
-          <select class="res-agenda-id"></select>
+          <select class="res-agenda-id">${agenda_option}</select>
         </div>
         <div class="col-sm-12 col-md-4">
           <input type="text" class="registration-no" placeholder="Registration No." autocomplete="off">
@@ -249,7 +263,6 @@ function addRow(row_type)
     </div>`;
     $('.remove-resolution-btn').removeClass('disabled');
     $('#resolution-list').append(new_row);
-    populateAgendaIdDropdown();
   }
   else if(row_type == "note")
   {
@@ -334,6 +347,12 @@ function populatePopup()
   details += "<p class='col-sm-5'>"+$('#meeting-venue').val()+"</p>";
   $('#display-meeting-detail').html(details);
 
+  // popuating JSON :
+  minute_json.meeting_id = $('#meeting-id').val();
+  minute_json.meeting_date = $('#meeting-date').val();
+  minute_json.meeting_time = $('#meeting-time').val();
+  minute_json.meeting_venue = $('#meeting-venue').val();
+
   // Meeting Member
   var members = ``;
   var member_list = $('#member-list > .row');
@@ -345,6 +364,14 @@ function populatePopup()
     member_designation = (member_designation == "Other")? $(member_list[i]).find('.custom-designation').val() : member_designation;
     var member = member_title + " " + member_name + ", " + member_designation;
     members += `<p>`+member+`<p>`;
+
+    // populating JSON :
+    var member_detail = {
+      title : member_title,
+      name : member_name,
+      designation : member_designation
+    }
+    minute_json.members.push(member_detail);
   }
   $('#display-member-list').html(members);
 
@@ -353,45 +380,88 @@ function populatePopup()
   meeting_agenda.forEach(function(value, key)
   {
     var student_list = ``;
+    var agenda_detail = {
+      id : key,
+      agenda : value.agenda_detail,
+      proceeding : value.proceeding_detail,
+      resolutions : []
+    };
     value.resolutions.forEach((student) => {
+      var json_resolution = {
+        registration_no : student.registration_no,
+        name : student.name,
+        black_dot : 'no',
+        counseling : 'no',
+        yoga_classes : 'no',
+        expulsion_from_hostel : 'no',
+        expulsion_from_institute : 'no',
+        debarred_f_reg : 'no',
+        monetary_fine : 'no',
+        letter_t_parrents : 'no',
+        w_letter_t_student : 'no',
+        other_punishment : 'no'
+      };
       var student_info = `<div class="row">
                             <p class="col-sm-4">`+student.registration_no+`</p>
                             <p class="col-sm-4">`+student.name+`</p>
                           </div>`;
       var student_punishment = `<div class="display-punishment">`;
       if(student.black_dot != "")
-        student_punishment += `<p><b>Black Dot : </b>`+student.black_dot+`</p>`;
-
+      {
+          student_punishment += `<p><b>Black Dot : </b>`+student.black_dot+`</p>`;
+          json_resolution.black_dot = student.black_dot;
+      }
       if(student.counseling != "" && student.counseling != "No" )
+      {
         student_punishment += `<p><b>Counseling : </b>`+student.counseling+`</p>`;
-
+        json_resolution.counseling = student.counseling;
+      }
       if(student.yoga_classes != "" && student.yoga_classes != "No")
-        student_punishment += `<p><b>Yoga Classes : </b>`+student.yoga_classes+`</p>`;
-
+      {
+          student_punishment += `<p><b>Yoga Classes : </b>`+student.yoga_classes+`</p>`;
+          json_resolution.yoga_classes = student.yoga_classes;
+      }
       if(student.expulsion_from_hostel != "" && student.expulsion_from_hostel != "No")
-        student_punishment += `<p><b>Expulsion From Hostel : </b>`+student.expulsion_from_hostel+`</p>`;
-
+      {
+          student_punishment += `<p><b>Expulsion From Hostel : </b>`+student.expulsion_from_hostel+`</p>`;
+          json_resolution.expulsion_from_hostel = student.expulsion_from_hostel;
+      }
       if(student.expulsion_from_institute != "" && student.expulsion_from_institute != "No")
-        student_punishment += `<p><b>Explusion From Institute : </b>`+student.expulsion_from_institute+`</p>`;
-
+      {
+          student_punishment += `<p><b>Explusion From Institute : </b>`+student.expulsion_from_institute+`</p>`;
+          json_resolution.expulsion_from_institute = student.expulsion_from_institute;
+      }
       if(student.debarred_f_reg != "" && student.debarred_f_reg != "No")
-        student_punishment += `<p><b>Debarred From Registration : </b>`+student.debarred_f_reg+`</p>`;
-
+      {
+          student_punishment += `<p><b>Debarred From Registration : </b>`+student.debarred_f_reg+`</p>`;
+          json_resolution.debarred_f_reg = student.debarred_f_reg;
+      }
       if(student.monetary_fine != "" && student.monetary_fine != "No")
-        student_punishment += `<p><b>Monetary Fine : </b>`+student.monetary_fine+`</p>`;
-
+      {
+          student_punishment += `<p><b>Monetary Fine : </b>`+student.monetary_fine+`</p>`;
+          json_resolution.monetary_fine = student.monetary_fine;
+      }
       if(student.letter_t_parrents != "" && student.letter_t_parrents != "No")
-        student_punishment += `<p><b>Letter To Parents : </b>`+student.letter_t_parrents+`</p>`;
-
+      {
+          student_punishment += `<p><b>Letter To Parents : </b>`+student.letter_t_parrents+`</p>`;
+          json_resolution.letter_t_parrents = student.letter_t_parrents;
+      }
       if(student.w_letter_t_student != "" && student.w_letter_t_student != "No")
-        student_punishment += `<p><b>Letter To Students : </b>`+student.w_letter_t_student+`</p>`;
-
+      {
+          student_punishment += `<p><b>Letter To Students : </b>`+student.w_letter_t_student+`</p>`;
+          json_resolution.w_letter_t_student = student.w_letter_t_student;
+      }
       if(student.other_punishment != "" && student.other_punishment != "No")
-        student_punishment += `<p><b>Other Punishments : </b>`+student.other_punishment+`</p>`;
+      {
+          student_punishment += `<p><b>Other Punishments : </b>`+student.other_punishment+`</p>`;
+          json_resolution.other_punishment = student.other_punishment;
+      }
+      agenda_detail.resolutions.push(json_resolution) // populating JSON
 
       student_punishment += `</div>`;
       student_list += `<li class="tile">`+student_info + student_punishment+`</li>`;
     });
+    minute_json.agendas.push(agenda_detail); // populating JSON
 
     agenda += `<div class="display-agenda">
                     <div class="row display-agenda-tile">
@@ -408,8 +478,10 @@ function populatePopup()
   var notes = ``;
   var meeting_notes = $('.meeting-note');
   for(var i=0; i<meeting_notes.length; i++)
+  {
       notes += `<p>`+$(meeting_notes).eq(i).val();+`</p>`
-
+      minute_json.notes.push($(meeting_notes).eq(i).val());
+  }
   $('#display-notes-list').append(notes);
 
 }
@@ -482,5 +554,6 @@ function displayMinutes()
     popup(0);
     mapResolutionToAgenda();
     populatePopup();
+    console.log(minute_json);
   }
 }
