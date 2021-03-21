@@ -23,9 +23,7 @@ input[type=date], input[type=time]
   opacity: .6;
   cursor: not-allowed;
 }
-.resolution{
-  margin : 50px 0px;
-}
+
 .overlay > .generate-minutes
 {
   max-width : 800px;
@@ -50,4 +48,23 @@ input[type=date], input[type=time]
 .display-punishment > p
 {
   margin : 10px;
+}
+.meeting-header, .meeting-header-agenda{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.meeting-header > h4, , .meeting-header-agenda > h4{
+  margin : 0px;
+}
+.meeting-header > .close-icon, .meeting-header-agenda > .close-icon{
+  height: 20px;
+  width: 20px;
+  float: right;
+  margin: 20px;
+  background-image: url('../media/close.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
 }

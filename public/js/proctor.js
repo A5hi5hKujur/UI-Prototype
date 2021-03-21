@@ -27,6 +27,450 @@ function checkMemberDesignation(element)
 }
 //------------------------------------------------------------------------------
 
+
+//------------------------------- NEW CODE STARTS HERE -------------------------
+function removeRow(element, type)
+{
+  if(type === 'agenda')
+  {
+    let agenda_list = $('#agenda-list').children().length;
+    if(agenda_list > 1)
+    {
+        $(element).closest('.agenda').remove();
+
+        $('#agenda-list').children().each(function(index, value){
+            $(this).find('.meeting-header-agenda > h4').html('Meeting Agenda '+(index+1));
+        });
+    }
+    else alert('The meeting MUST have atleast one Agenda');
+  }
+  else if(type === 'resolution')
+  {
+    let resolution_list = $(element).closest('.resolution-list');
+    if($(resolution_list).children().length > 1)
+    {
+        $(element).closest('.resolution').remove();
+        // rename resolution headers
+        $(resolution_list).children().each(function(index, value){
+            $(this).find('.meeting-header > h4').html('Resolution '+(index+1));
+        });
+    }
+    else alert('An agenda MUST have atleast one Resolution');
+  }
+  else if(type === 'student')
+  {
+    let isDeleted = false;
+    let student_list = $(element).closest('.student-list');
+    if($(student_list).children().length > 1)
+    {
+        $(element).closest('.student').remove();
+        isDeleted = true;
+    }
+    if(isDeleted && $(student_list).children().length == 1)
+      $(student_list).find('.remove-member-btn').addClass('disabled');
+  }
+  else if(type === 'member')
+  {
+    let isDeleted = false;
+    let member_len = $('#member-list').children().length;
+    if(member_len > 1)
+    {
+        $(element).closest('.row').remove();
+        isDeleted = true;
+    }
+    if(isDeleted && member_len - 1 == 1)
+      $('#member-list').find('.remove-member-btn').addClass('disabled');
+  }
+  else if(type === 'note')
+  {
+    let isDeleted = false;
+    let note_len = $('#note-list').children().length;
+    if(note_len > 1)
+    {
+        $(element).closest('.row').remove();
+        isDeleted = true;
+    }
+    if(isDeleted && note_len - 1 == 1)
+      $('#note-list').find('.remove-note-btn').addClass('disabled');
+  }
+}
+
+function addRow(element, type)
+{
+  if(type == "member")
+  {
+    var new_row = `<div class="row">
+      <div class="col-sm-12 col-md-2">
+        <!-- <label for="meeting-id">Meeting ID</label> -->
+        <select class="member-title">
+          <option value="Prof.">Prof.</option>
+          <option value="Dr.">Dr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Ms.">Ms.</option>
+        </select>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <!-- <label for="meeting-date">Meeting Date</label> -->
+        <input type="text" class="member-name" placeholder="Member Name" value="" autocomplete="off">
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <select class="member-designation" onclick="checkMemberDesignation(this);">
+          <option value="Chairperson, Chief Proctor">Chairperson, Chief Proctor</option>
+          <option value="Member, Women’s Grievance Cell">Member, Women’s Grievance Cell</option>
+          <option value="Member, Professor In charge Training & Placement">Member, Professor In charge Training & Placement</option>
+          <option value="Member, Chairman, SC/ST Cell">Member, Chairman, SC/ST Cell</option>
+          <option value="Member, Chief Warden (Girls)">Member, Chief Warden (Girls)</option>
+          <option value="Member, Chief Warden (Boys)">Member, Chief Warden (Boys)</option>
+          <option value="Member, Proctor (Girl’s)">Member, Proctor (Girl’s)</option>
+          <option value="Member, Proctor (Boy’s)">Member, Proctor (Boy’s)</option>
+          <option value="Other">Other</option>
+        </select>
+        <input class="custom-designation" type="text" placeholder="Enter Designation" value="" autocomplete="off">
+      </div>
+      <div class="col-sm-12 col-md-2">
+        <button type="button" name="button" class="btn-wide-blue remove-member-btn" onclick="removeRow(this, 'member');">Remove Member</button>
+      </div>
+    </div>`;
+    $('.remove-member-btn').removeClass('disabled');
+    $('#member-list').append(new_row);
+  }
+  else if(type == "note")
+  {
+    let new_row = `<div class="row">
+      <div class="col-sm-10">
+        <input type="text" class="meeting-note" placeholder="Enter Notes" autocomplete="off">
+      </div>
+      <div class="col-sm-2">
+        <button type="button" name="button" class="btn-wide-blue remove-note-btn" onclick="removeRow(this, 'note');">Remove Note</button>
+      </div>
+    </div>`;
+    $('.remove-note-btn').removeClass('disabled');
+    $('#note-list').append(new_row);
+  }
+  else if(type == "resolution")
+  {
+    let resolution_list = $(element).siblings('.resolution-list');
+    let new_res_id = $(resolution_list).children().length + 1;
+    let new_resolution = `<div class="tile resolution">
+      <div class="meeting-header">
+        <h4>Resolution ${new_res_id}</h4>
+        <div class="close-icon" onclick="removeRow(this, 'resolution');"></div>
+      </div>
+        <div class="resolution-punishments">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <label>Black Dots</label>
+              <select class="black_dot">
+                <option value="" selected>No Black Dot</option>
+                <option value="One Black Dot">One Black Dot</option>
+                <option value="Two Black Dot">Two Black Dot</option>
+                <option value="Three Black Dot">Three Black Dot</option>
+                <option value="Four Black Dot">Four Black Dot</option>
+                <option value="Five Black Dot">Five Black Dot</option>
+              </select>
+            </div>
+
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Counseling</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Yoga Classes</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
+            </div>
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Hostel Expulsion</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb expulsion_from_hostel" type="text"  placeholder="Enter Duration of Hostel Expulsion" value="No">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Institute Expulsion</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
+            </div>
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Debar Registration</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Monetary Fine</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
+            </div>
+            <div class="col-sm-12 col-md-6 select-punishment">
+              <label>Inform Parents</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6  select-punishment">
+              <label>Warning Letter to Student</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
+            </div>
+            <div class="col-sm-12 col-md-6  select-punishment">
+              <label>Other Punishment</label>
+              <select onclick="selectPunishment(this);">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+              <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <h4>Student Details</h4>
+          <div class="student-list">
+            <div class="row student">
+              <div class="col-sm-12 col-md-2">
+                <select class="member-title">
+                  <option value="Mr.">Mr.</option>
+                  <option value="Ms.">Ms.</option>
+                </select>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-2">
+                <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled" onclick="removeRow(this, 'student');">Remove Student</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+        </div>
+      </div>`;
+      $(resolution_list).append(new_resolution);
+  }
+  else if(type === 'student')
+  {
+    let student_list = $(element).siblings('.student-list');
+    let new_student = `<div class="row student">
+      <div class="col-sm-12 col-md-2">
+        <select class="member-title">
+          <option value="Mr.">Mr.</option>
+          <option value="Ms.">Ms.</option>
+        </select>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
+      </div>
+      <div class="col-sm-12 col-md-2">
+        <button type="button" name="button" class="btn-wide-blue remove-member-btn" onclick="removeRow(this, 'student');">Remove Student</button>
+      </div>
+    </div>`;
+    $(student_list).append(new_student);
+    $(student_list).find('.disabled').removeClass('disabled');
+  }
+}
+
+function addAgenda()
+{
+  let agenda_id = $('#agenda-list').children().length + 1;
+  let new_agenda = `<div class="tile agenda">
+    <div class="meeting-header-agenda">
+      <h4>Meeting Agenda ${agenda_id}</h4>
+      <div class="close-icon" onclick="removeRow(this, 'agenda');"></div>
+    </div>
+
+    <!-- Agenda details -->
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <input type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off">
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <input type="text" class="proceeding-details" placeholder="Proceeding Details" value="" autocomplete="off">
+      </div>
+    </div>
+    <!-- End of Agenda Details -->
+
+    <!-- Resolution of an agenda -->
+    <div class="resolution-list">
+      <div class="tile resolution">
+        <div class="meeting-header">
+          <h4>Resolution 1</h4>
+          <div class="close-icon" onclick="removeRow(this, 'resolution');"></div>
+        </div>
+          <div class="resolution-punishments">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <label>Black Dots</label>
+                <select class="black_dot">
+                  <option value="" selected>No Black Dot</option>
+                  <option value="One Black Dot">One Black Dot</option>
+                  <option value="Two Black Dot">Two Black Dot</option>
+                  <option value="Three Black Dot">Three Black Dot</option>
+                  <option value="Four Black Dot">Four Black Dot</option>
+                  <option value="Five Black Dot">Five Black Dot</option>
+                </select>
+              </div>
+
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Counseling</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Yoga Classes</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
+              </div>
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Hostel Expulsion</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb expulsion_from_hostel" type="text"  placeholder="Enter Duration of Hostel Expulsion" value="No">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Institute Expulsion</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
+              </div>
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Debar Registration</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Monetary Fine</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
+              </div>
+              <div class="col-sm-12 col-md-6 select-punishment">
+                <label>Inform Parents</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-6  select-punishment">
+                <label>Warning Letter to Student</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
+              </div>
+              <div class="col-sm-12 col-md-6  select-punishment">
+                <label>Other Punishment</label>
+                <select onclick="selectPunishment(this);">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
+              </div>
+            </div>
+          </div>
+
+          <!-- Add students in a Resolution -->
+          <div class="container">
+            <h4>Student Details</h4>
+            <div class="student-list">
+              <div class="row student">
+                <div class="col-sm-12 col-md-2">
+                  <select class="member-title">
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                  </select>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
+                </div>
+                <div class="col-sm-12 col-md-2">
+                  <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled" onclick="removeRow(this, 'student');">Remove Student</button>
+                </div>
+              </div>
+            </div>
+            <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+          </div>
+          <!-- End of Adding students in resolution -->
+        </div>
+    </div>
+  <!-- End of Resolution of an agenda -->
+    <button type="button" name="button" class="btn-wide-green" style="width : 230px;" onclick="addRow(this, 'resolution');">Add Resolution</button>
+  </div>`;
+  $('#agenda-list').append(new_agenda);
+}
+//------------------------------- NEW CODE ENDS HERE ---------------------------
+
 var meeting_agenda = new Map();
 var minute_json = {
   meeting_id : undefined,
@@ -159,305 +603,6 @@ var minute_json = {
     };
 */
 
-//--------- Populate All resolution id dropdowns with agenda id ----------------
-function populateAgendaIdDropdown()
-{
-  var agenda_id_option = "";
-  meeting_agenda.forEach(function(value, key) {
-    agenda_id_option += `<option value="`+key+`">`+key+`</option>`;
-  });
-  $('.res-agenda-id').html(agenda_id_option);
-}
-//------------------------------------------------------------------------------
-
-//---------------- update agenda id to map onfocusout --------------------------
-function updateAgendaID(element)
-{
-  var agenda_id = $(element).val();
-  if(agenda_id.length)
-  {
-    $(element).closest('row').attr('id', agenda_id);
-    var agenda_details = {
-      id : undefined,
-      agenda_detail : undefined,
-      proceeding_detail : undefined,
-      resolutions : []
-    };
-    meeting_agenda.set(agenda_id, agenda_details);
-  }
-  populateAgendaIdDropdown();
-}
-//------------------------------------------------------------------------------
-
-//---------------- remove existing agenda from map onfocus ---------------------
-function removeAgendaID(element)
-{
-  var agenda_id = $(element).val();
-  if(agenda_id.length && meeting_agenda.has(agenda_id))
-  {
-    meeting_agenda.delete(agenda_id);
-  }
-}
-
-//--------------------------- Function to add a Row ----------------------------
-function addRow(row_type)
-{
-  if(row_type == "member")
-  {
-    var new_row = `<div class="row">
-      <div class="col-sm-12 col-md-2">
-        <!-- <label for="meeting-id">Meeting ID</label> -->
-        <select class="member-title">
-          <option value="Prof.">Prof.</option>
-          <option value="Dr.">Dr.</option>
-          <option value="Mrs.">Mrs.</option>
-          <option value="Mr.">Mr.</option>
-          <option value="Ms.">Ms.</option>
-        </select>
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <!-- <label for="meeting-date">Meeting Date</label> -->
-        <input type="text" class="member-name" placeholder="Member Name" value="" autocomplete="off">
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <select class="member-designation" onclick="checkMemberDesignation(this);">
-          <option value="Chairperson, Chief Proctor">Chairperson, Chief Proctor</option>
-          <option value="Member, Women’s Grievance Cell">Member, Women’s Grievance Cell</option>
-          <option value="Member, Professor In charge Training & Placement">Member, Professor In charge Training & Placement</option>
-          <option value="Member, Chairman, SC/ST Cell">Member, Chairman, SC/ST Cell</option>
-          <option value="Member, Chief Warden (Girls)">Member, Chief Warden (Girls)</option>
-          <option value="Member, Chief Warden (Boys)">Member, Chief Warden (Boys)</option>
-          <option value="Member, Proctor (Girl’s)">Member, Proctor (Girl’s)</option>
-          <option value="Member, Proctor (Boy’s)">Member, Proctor (Boy’s)</option>
-          <option value="Other">Other</option>
-        </select>
-        <input class="custom-designation" type="text" placeholder="Enter Designation" value="" autocomplete="off">
-      </div>
-      <div class="col-sm-12 col-md-2">
-        <button type="button" name="button" class="btn-wide-blue remove-member-btn" onclick="removeRow(this, 'member');">Remove Member</button>
-      </div>
-    </div>`;
-    $('.remove-member-btn').removeClass('disabled');
-    $('#member-list').append(new_row);
-  }
-  else if(row_type == "agenda")
-  {
-    var new_row = `<div class="row">
-      <div class="col-sm-12 col-md-2">
-        <input type="text" class="agenda-id" placeholder="Agenda ID" value="" autocomplete="off" onfocusout="updateAgendaID(this);" onfocus="removeAgendaID(this);">
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <input type="text" class="agenda-details" placeholder="Agenda Details" value=""autocomplete="off" >
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <input type="text" class="proceeding-details" placeholder="Proceeding Details" value=""autocomplete="off" >
-      </div>
-      <div class="col-sm-12 col-md-2">
-        <button type="button" name="button" class="btn-wide-blue remove-agenda-btn" onclick="removeRow(this, 'agenda');">Remove Agenda</button>
-      </div>
-    </div>`;
-    $('.remove-agenda-btn').removeClass('disabled');
-    $('#agenda-list').append(new_row);
-  }
-  else if(row_type == "resolution")
-  {
-    // find all agenda ids and then load new resolution
-    var agenda_option = ``;
-    meeting_agenda.forEach((item, key) => {
-      agenda_option += `<option value="${key}">${key}</option>`;
-    });
-    var new_row = `<div class="resolution" id="">
-      <div class="row">
-        <div class="col-sm-12 col-md-2">
-          <select class="res-agenda-id">${agenda_option}</select>
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <input type="text" class="registration-no" placeholder="Registration No." autocomplete="off">
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <input type="text" class="name" placeholder="Student Name" autocomplete="off">
-        </div>
-        <div class="col-sm-12 col-md-2">
-          <button type="button" name="button" class="btn-wide-blue remove-resolution-btn" onclick="removeRow(this, 'resolution');">Remove Resolution</button>
-        </div>
-      </div>
-      <div class="resolution-punishments" style="margin-top : 20px;">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <label>Black Dots</label>
-            <select class="black_dot">
-              <option value="">No Black Dot</option>
-              <option value="One Black Dot">One Black Dot</option>
-              <option value="Two Black Dot">Two Black Dot</option>
-              <option value="Three Black Dot">Three Black Dot</option>
-              <option value="Four Black Dot">Four Black Dot</option>
-              <option value="Five Black Dot">Five Black Dot</option>
-            </select>
-          </div>
-
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Counseling</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Yoga Classes</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
-          </div>
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Hostel Expulsion</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb expulsion_from_hostel" type="text" placeholder="Enter Duration of Hostel Expulsion" value="No">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Institute Expulsion</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
-          </div>
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Debar Registration</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Monetary Fine</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
-          </div>
-          <div class="col-sm-12 col-md-6 select-punishment">
-            <label>Inform Parents</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-6  select-punishment">
-            <label>Warning Letter to Student</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
-          </div>
-          <div class="col-sm-12 col-md-6  select-punishment">
-            <label>Other Punishment</label>
-            <select onclick="selectPunishment(this);">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-            <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
-          </div>
-        </div>
-      </div>
-    </div>`;
-    $('.remove-resolution-btn').removeClass('disabled');
-    $('#resolution-list').append(new_row);
-  }
-  else if(row_type == "note")
-  {
-    var new_row = `<div class="row">
-      <div class="col-sm-10">
-        <input type="text" class="meeting-note" placeholder="Enter Notes" autocomplete="off">
-      </div>
-      <div class="col-sm-2">
-        <button type="button" name="button" class="btn-wide-blue remove-note-btn" onclick="removeRow(this, 'note');">Remove Note</button>
-      </div>
-    </div>`;
-    $('.remove-note-btn').removeClass('disabled');
-    $('#note-list').append(new_row);
-  }
-}
-//------------------------------------------------------------------------------
-
-//------------------------------- Remove Row -----------------------------------
-function removeRow(element, row_type)
-{
-  if(row_type == "member")
-  {
-    var isDeleted = false;
-    var member_len = $('#member-list').children().length;
-    if(member_len > 1)
-    {
-        $(element).closest('.row').remove();
-        isDeleted = true;
-    }
-    if(isDeleted && member_len - 1 == 1)
-      $('#member-list').find('.remove-member-btn').addClass('disabled');
-  }
-  else if(row_type == "agenda")
-  {
-    var isDeleted = false;
-    var agenda_len = $('#agenda-list').children().length;
-    if(agenda_len > 1)
-    {
-        let agenda_id = $(element).closest('.row').find('.agenda-id').val();
-        meeting_agenda.delete(agenda_id);
-        // !!!! Add code to remove all resolutions attached to the agenda id.
-        $(element).closest('.row').remove();
-        isDeleted = true;
-        populateAgendaIdDropdown();
-    }
-    if(isDeleted && agenda_len - 1 == 1)
-      $('#agenda-list').find('.remove-agenda-btn').addClass('disabled');
-  }
-  else if(row_type == "resolution")
-  {
-    var isDeleted = false;
-    var resolution_len = $('#resolution-list').children().length;
-    if(resolution_len > 1)
-    {
-        $(element).closest('.resolution').remove();
-        isDeleted = true;
-    }
-    if(isDeleted && resolution_len - 1 == 1)
-      $('#resolution-list').find('.remove-resolution-btn').addClass('disabled');
-  }
-  else if(row_type == "note")
-  {
-    var isDeleted = false;
-    var note_len = $('#note-list').children().length;
-    if(note_len > 1)
-    {
-        $(element).closest('.row').remove();
-        isDeleted = true;
-    }
-    if(isDeleted && note_len - 1 == 1)
-      $('#note-list').find('.remove-note-btn').addClass('disabled');
-  }
-}
-//------------------------------------------------------------------------------
 function populatePopup()
 {
   // Meeting Details

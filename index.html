@@ -224,162 +224,174 @@
                   </div>
                 </div>
               </div>
-              <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow('member');">Add Another Member</button>
+              <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow('x', 'member');">Add Another Member</button>
             </div>
           </section>
           <!-- End Member Details -->
 
           <!-- Meeting Agenda -->
-          <section>
-            <div class="tile">
-              <h4>Meeting Agenda</h4>
-              <div id="agenda-list">
-                <div class="row">
-                  <div class="col-sm-12 col-md-2">
-                    <input type="text" class="agenda-id" placeholder="Agenda ID" value="" autocomplete="off" onfocusout="updateAgendaID(this);" onfocus="removeAgendaID(this);">
-                  </div>
-                  <div class="col-sm-12 col-md-4">
-                    <input type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off">
-                  </div>
-                  <div class="col-sm-12 col-md-4">
-                    <input type="text" class="proceeding-details" placeholder="Proceeding Details" value="" autocomplete="off">
-                  </div>
-                  <div class="col-sm-12 col-md-2">
-                    <button type="button" name="button" class="btn-wide-blue remove-agenda-btn disabled" onclick="removeRow(this, 'agenda');">Remove Agenda</button>
-                  </div>
+          <section id="agenda-list">
+            <div class="tile agenda">
+              <div class="meeting-header-agenda">
+                <h4>Meeting Agenda 1</h4>
+                <div class="close-icon" onclick="removeRow(this, 'agenda');"></div>
+              </div>
+
+              <!-- Agenda details -->
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <input type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off">
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <input type="text" class="proceeding-details" placeholder="Proceeding Details" value="" autocomplete="off">
                 </div>
               </div>
-              <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow('agenda');">Add Another Agenda</button>
+              <!-- End of Agenda Details -->
+
+              <!-- Resolution of an agenda -->
+              <div class="resolution-list">
+                <div class="tile resolution">
+                  <div class="meeting-header">
+                    <h4>Resolution 1</h4>
+                    <div class="close-icon" onclick="removeRow(this, 'resolution');"></div>
+                  </div>
+                    <div class="resolution-punishments">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                          <label>Black Dots</label>
+                          <select class="black_dot">
+                            <option value="" selected>No Black Dot</option>
+                            <option value="One Black Dot">One Black Dot</option>
+                            <option value="Two Black Dot">Two Black Dot</option>
+                            <option value="Three Black Dot">Three Black Dot</option>
+                            <option value="Four Black Dot">Four Black Dot</option>
+                            <option value="Five Black Dot">Five Black Dot</option>
+                          </select>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Counseling</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Yoga Classes</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
+                        </div>
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Hostel Expulsion</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb expulsion_from_hostel" type="text"  placeholder="Enter Duration of Hostel Expulsion" value="No">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Institute Expulsion</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
+                        </div>
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Debar Registration</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Monetary Fine</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
+                        </div>
+                        <div class="col-sm-12 col-md-6 select-punishment">
+                          <label>Inform Parents</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6  select-punishment">
+                          <label>Warning Letter to Student</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
+                        </div>
+                        <div class="col-sm-12 col-md-6  select-punishment">
+                          <label>Other Punishment</label>
+                          <select onclick="selectPunishment(this);">
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Add students in a Resolution -->
+                    <div class="container">
+                      <h4>Student Details</h4>
+                      <div class="student-list">
+                        <div class="row student">
+                          <div class="col-sm-12 col-md-2">
+                            <select class="member-title">
+                              <option value="Mr.">Mr.</option>
+                              <option value="Ms.">Ms.</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-12 col-md-4">
+                            <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+                          </div>
+                          <div class="col-sm-12 col-md-4">
+                            <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
+                          </div>
+                          <div class="col-sm-12 col-md-2">
+                            <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled" onclick="removeRow(this, 'student');">Remove Student</button>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+                    </div>
+                    <!-- End of Adding students in resolution -->
+                  </div>
+              </div>
+            <!-- End of Resolution of an agenda -->
+              <button type="button" name="button" class="btn-wide-green" style="width : 230px;" onclick="addRow(this, 'resolution');">Add Resolution</button>
             </div>
+          </section>
+          <section style="margin : 20px auto 0px auto">
+            <button type="button" name="button" class="btn-wide-green" onclick="addAgenda();">Add Another Agenda</button>
           </section>
           <!-- End Meeting Agenda -->
 
-          <!-- Meeting Resolutions -->
-          <section>
-            <div class="tile">
-              <h4>Resolutions</h4>
-              <div id="resolution-list">
-                <div class="resolution" id="">    <!-- Assign Resolution an agenda id as soon as an agenda id is selected from the dropdown -->
-                  <div class="row">
-                    <div class="col-sm-12 col-md-2">
-                      <select class="res-agenda-id"></select>   <!-- Repopulate this every time a new agenda is added to the Agenda Map -->
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                      <input type="text" class="registration-no" placeholder="Registration No." autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                      <input type="text" class="name" placeholder="Student Name" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-2">
-                      <button type="button" name="button" class="btn-wide-blue remove-resolution-btn disabled" onclick="removeRow(this, 'resolution');">Remove Student</button>
-                    </div>
-                  </div>
-                  <div class="resolution-punishments" style="margin-top : 20px;">
-                    <div class="row">
-                      <div class="col-sm-12 col-md-6">
-                        <label>Black Dots</label>
-                        <select class="black_dot">
-                          <option value="" selected>No Black Dot</option>
-                          <option value="One Black Dot">One Black Dot</option>
-                          <option value="Two Black Dot">Two Black Dot</option>
-                          <option value="Three Black Dot">Three Black Dot</option>
-                          <option value="Four Black Dot">Four Black Dot</option>
-                          <option value="Five Black Dot">Five Black Dot</option>
-                        </select>
-                      </div>
-
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Counseling</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Yoga Classes</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
-                      </div>
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Hostel Expulsion</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb expulsion_from_hostel" type="text"  placeholder="Enter Duration of Hostel Expulsion" value="No">
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Institute Expulsion</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
-                      </div>
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Debar Registration</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Monetary Fine</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
-                      </div>
-                      <div class="col-sm-12 col-md-6 select-punishment">
-                        <label>Inform Parents</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-12 col-md-6  select-punishment">
-                        <label>Warning Letter to Student</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
-                      </div>
-                      <div class="col-sm-12 col-md-6  select-punishment">
-                        <label>Other Punishment</label>
-                        <select onclick="selectPunishment(this);">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
-                        </select>
-                        <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button type="button" name="button" class="btn-wide-green" onclick="addRow('resolution');">Add Another Resolution / Student</button>
-            </div>
-          </section>
-          <!-- End Meeting Resolutions -->
           <!-- Meeting Notes -->
           <section>
             <div class="tile">
@@ -394,7 +406,7 @@
                   </div>
                 </div>
               </div>
-              <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow('note');">Add Another Note</button>
+              <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow('x', 'note');">Add Another Note</button>
             </div>
           </section>
           <!-- End Meeting Notes -->
