@@ -489,9 +489,7 @@ var minute_json = {
           id : "1",
           agenda_detail : "To discuss the case reported by Chief Warden (Girls’) entered at No. 21 in the diary of Chief Proctor Office, regarding the late arrival of Ms Jaya. (Reg. No. 20185690 , Room No. 50) and Ms. Sushma (Reg.No. 20185685, KNGH, Room No. 50) in hostel after the purchase and consumption of prohibited items (outside KNGH) on the night of 05/02/2021.",
           proceeding_detail : "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls’) and statements of the concerned students. The members also interacted in person with Ms. and Ms.",
-          resolution : [{
-                        registration_no: "20185690",
-                        name: "Jaya",
+          resolutions : [{
                         black_dot : "Two Black Dot",
                         counseling : "no",
                         yoga_classes: "Yoga classes (They are required to attend at least 100 yoga classes).",
@@ -502,30 +500,21 @@ var minute_json = {
                         letter_t_parrents: "Information to parents.",
                         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
                         other_punishment: "no"
-                      },
-                      {
-                        registration_no: "20185685",
-                        name: "Sushma",
-                        black_dot : "Two Black Dot",
-                        counseling : "no",
-                        yoga_classes: "Yoga classes (They are required to attend at least 100 yoga classes).",
-                        expulsion_from_hostel: "Temporary expulsion from the hostel for one semester Even Semester (2019-2020).",
-                        expulsion_from_institute: "no",
-                        debarred_f_reg : "Academic probation for Even Semester of Academic session (2019-2020).",
-                        monetary_fine: "no",
-                        letter_t_parrents: "Information to parents.",
-                        w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
-                        other_punishment: "no"
+                        students : [{
+                          registration_no: "20185690",
+                          name: "Ms. Jaya",
+                        },
+                        {
+                          registration_no: "20185685",
+                          name: "Ms. Sushma",
+                        }]
                     }]
-
           },
           {
             id : "2",
             agenda: "To discuss the case reported by Chief Warden (Girls’) regarding vandalism on campus by Ms  Rekha (Reg.No. 20185689 Room No 11,) in the premises of the hostel.",
             proceeding: "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls’) and statements of the concerned students. The members also interacted in person with Ms. Rekha",
             resolution : [{
-                        registration_no: "20185690",
-                        name: "Jaya",
                         black_dot : "no",
                         counseling : "no",
                         yoga_classes: "no",
@@ -536,6 +525,10 @@ var minute_json = {
                         letter_t_parrents: "no",
                         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
                         other_punishment: "no"
+                        students : [{
+                          registration_no: "20185690",
+                          name: "Ms. Rekha"
+                        }]
                       }]
           }],
           meeting_date: "2021-03-18",
@@ -613,12 +606,6 @@ function populatePopup()
   details += "<p class='col-sm-5'>"+$('#meeting-venue').val()+"</p>";
   $('#display-meeting-detail').html(details);
 
-  // popuating JSON :
-  minute_json.meeting_id = $('#meeting-id').val();
-  minute_json.meeting_date = $('#meeting-date').val();
-  minute_json.meeting_time = $('#meeting-time').val();
-  minute_json.meeting_venue = $('#meeting-venue').val();
-
   // Meeting Member
   var members = ``;
   var member_list = $('#member-list > .row');
@@ -630,115 +617,76 @@ function populatePopup()
     member_designation = (member_designation == "Other")? $(member_list[i]).find('.custom-designation').val() : member_designation;
     var member = member_title + " " + member_name + ", " + member_designation;
     members += `<p>`+member+`<p>`;
-
-    // populating JSON :
-    var member_detail = {
-      title : member_title,
-      name : member_name,
-      designation : member_designation
-    }
-    minute_json.members.push(member_detail);
   }
   $('#display-member-list').html(members);
 
   // Meeting Agenda
-  var agenda = ``;
-  meeting_agenda.forEach(function(value, key)
+  let agendaU = ``;
+  let resolution_list = ``;
+  minute_json.agendas.forEach(function(agenda, key)
   {
-    var student_list = ``;
-    var agenda_detail = {
-      id : key,
-      agenda : value.agenda_detail,
-      proceeding : value.proceeding_detail,
-      resolutions : []
-    };
-    value.resolutions.forEach((student) => {
-      var json_resolution = {
-        registration_no : student.registration_no,
-        name : student.name,
-        black_dot : 'no',
-        counseling : 'no',
-        yoga_classes : 'no',
-        expulsion_from_hostel : 'no',
-        expulsion_from_institute : 'no',
-        debarred_f_reg : 'no',
-        monetary_fine : 'no',
-        letter_t_parrents : 'no',
-        w_letter_t_student : 'no',
-        other_punishment : 'no'
-      };
-      var student_info = `<div class="row">
-                            <p class="col-sm-4">`+student.registration_no+`</p>
-                            <p class="col-sm-4">`+student.name+`</p>
-                          </div>`;
+    agenda.resolutions.forEach((resolution) => {
+      let student_info = `<div class="display-students">`;
+      resolution.students.forEach((student, i) => {
+        student_info += `<div class="display-student">`
+          student_info += `<p><b>Name : </b>`+student.name+`</p>`;
+          student_info += `<p><b>registration_no : </b>`+student.registration_no+`</p>`;
+        student_info += `</div>`;
+      });
+      student_info += `</div>`;
+
       var student_punishment = `<div class="display-punishment">`;
-      if(student.black_dot != "")
+      if(resolution.black_dot != "")
+          student_punishment += `<p><b>Black Dot : </b>`+resolution.black_dot+`</p>`;
+      if(resolution.counseling != "" && resolution.counseling != "No" )
       {
-          student_punishment += `<p><b>Black Dot : </b>`+student.black_dot+`</p>`;
-          json_resolution.black_dot = student.black_dot;
+        student_punishment += `<p><b>Counseling : </b>`+resolution.counseling+`</p>`;
       }
-      if(student.counseling != "" && student.counseling != "No" )
+      if(resolution.yoga_classes != "" && resolution.yoga_classes != "No")
       {
-        student_punishment += `<p><b>Counseling : </b>`+student.counseling+`</p>`;
-        json_resolution.counseling = student.counseling;
+          student_punishment += `<p><b>Yoga Classes : </b>`+resolution.yoga_classes+`</p>`;
       }
-      if(student.yoga_classes != "" && student.yoga_classes != "No")
+      if(resolution.expulsion_from_hostel != "" && resolution.expulsion_from_hostel != "No")
       {
-          student_punishment += `<p><b>Yoga Classes : </b>`+student.yoga_classes+`</p>`;
-          json_resolution.yoga_classes = student.yoga_classes;
+          student_punishment += `<p><b>Expulsion From Hostel : </b>`+resolution.expulsion_from_hostel+`</p>`;
       }
-      if(student.expulsion_from_hostel != "" && student.expulsion_from_hostel != "No")
+      if(resolution.expulsion_from_institute != "" && resolution.expulsion_from_institute != "No")
       {
-          student_punishment += `<p><b>Expulsion From Hostel : </b>`+student.expulsion_from_hostel+`</p>`;
-          json_resolution.expulsion_from_hostel = student.expulsion_from_hostel;
+          student_punishment += `<p><b>Explusion From Institute : </b>`+resolution.expulsion_from_institute+`</p>`;
       }
-      if(student.expulsion_from_institute != "" && student.expulsion_from_institute != "No")
+      if(resolution.debarred_f_reg != "" && resolution.debarred_f_reg != "No")
       {
-          student_punishment += `<p><b>Explusion From Institute : </b>`+student.expulsion_from_institute+`</p>`;
-          json_resolution.expulsion_from_institute = student.expulsion_from_institute;
+          student_punishment += `<p><b>Debarred From Registration : </b>`+resolution.debarred_f_reg+`</p>`;
       }
-      if(student.debarred_f_reg != "" && student.debarred_f_reg != "No")
+      if(resolution.monetary_fine != "" && resolution.monetary_fine != "No")
       {
-          student_punishment += `<p><b>Debarred From Registration : </b>`+student.debarred_f_reg+`</p>`;
-          json_resolution.debarred_f_reg = student.debarred_f_reg;
+          student_punishment += `<p><b>Monetary Fine : </b>`+resolution.monetary_fine+`</p>`;
       }
-      if(student.monetary_fine != "" && student.monetary_fine != "No")
+      if(resolution.letter_t_parrents != "" && resolution.letter_t_parrents != "No")
       {
-          student_punishment += `<p><b>Monetary Fine : </b>`+student.monetary_fine+`</p>`;
-          json_resolution.monetary_fine = student.monetary_fine;
+          student_punishment += `<p><b>Letter To Parents : </b>`+resolution.letter_t_parrents+`</p>`;
       }
-      if(student.letter_t_parrents != "" && student.letter_t_parrents != "No")
+      if(resolution.w_letter_t_student != "" && resolution.w_letter_t_student != "No")
       {
-          student_punishment += `<p><b>Letter To Parents : </b>`+student.letter_t_parrents+`</p>`;
-          json_resolution.letter_t_parrents = student.letter_t_parrents;
+          student_punishment += `<p><b>Letter To Students : </b>`+resolution.w_letter_t_student+`</p>`;
       }
-      if(student.w_letter_t_student != "" && student.w_letter_t_student != "No")
+      if(resolution.other_punishment != "" && resolution.other_punishment != "No")
       {
-          student_punishment += `<p><b>Letter To Students : </b>`+student.w_letter_t_student+`</p>`;
-          json_resolution.w_letter_t_student = student.w_letter_t_student;
+          student_punishment += `<p><b>Other Punishments : </b>`+resolution.other_punishment+`</p>`;
       }
-      if(student.other_punishment != "" && student.other_punishment != "No")
-      {
-          student_punishment += `<p><b>Other Punishments : </b>`+student.other_punishment+`</p>`;
-          json_resolution.other_punishment = student.other_punishment;
-      }
-      agenda_detail.resolutions.push(json_resolution) // populating JSON
-
       student_punishment += `</div>`;
-      student_list += `<li class="tile">`+student_info + student_punishment+`</li>`;
+      resolution_list += `<li class="tile">`+student_info + student_punishment+`</li>`;
     });
-    minute_json.agendas.push(agenda_detail); // populating JSON
-
-    agenda += `<div class="display-agenda">
+    agendaU += `<div class="display-agenda">
                     <div class="row display-agenda-tile">
                       <p class="col-sm-2">`+key+`</p>
-                      <p class="col-sm-5">`+value.agenda_detail+`</p>
-                      <p class="col-sm-5">`+value.proceeding_detail+`</p>
+                      <p class="col-sm-5">`+agenda.agenda_detail+`</p>
+                      <p class="col-sm-5">`+agenda.proceeding_detail+`</p>
                     </div>
-                    <ul>`+student_list+`</ul>
+                    <ul>`+resolution_list+`</ul>
                   </div>`;
   });
-  $('#display-agenda-list').html(agenda);
+  $('#display-agenda-list').html(agendaU);
 
   // Meeting Notes
   var notes = ``;
@@ -749,62 +697,84 @@ function populatePopup()
       minute_json.notes.push($(meeting_notes).eq(i).val());
   }
   $('#display-notes-list').append(notes);
-
 }
-function mapResolutionToAgenda()
+function createNewJson()
 {
-  /*
-    Agenda = {
-      id : string,
-      agenda_detail : string,
-      proceeding_detail : string,
-      resolution : [{
-                      registration_no : string,
-                      student_name : string,
-                      black_dot : string,
-                      counseling : string,
-                      yoga_class : string,
-                      hostel_expulsion : string,
-                      institute_expulsion : string,
-                      debar_registratio : string,
-                      monetry_fine_status : string,
-                      inform_parents : string,
-                      warning_letter : string,
-                      other_punishment : string
-                    }, {..}, ...]
-    }
-  */
-  // ITERATE AGENDA LIST IN THE UI AND POPULATE MEETING AGENDA MAP
-  var agenda_list = $('#agenda-list > .row');
-  for(var i=0; i<agenda_list.length; i++)
+  // add meeting details :
+  minute_json.meeting_id = $('#meeting-id').val();
+  minute_json.meeting_date = $('#meeting-date').val();
+  minute_json.meeting_time = $('#meeting-time').val();
+  minute_json.meeting_venue = $('#meeting-venue').val();
+
+  // Add members
+  let member_list = $('#member-list > .row');
+  for(let i = 0; i<member_list.length; i++)
   {
-    var agenda_id = $(agenda_list[i]).find('.agenda-id').val();
-    meeting_agenda.get(agenda_id).id = agenda_id;
-    meeting_agenda.get(agenda_id).agenda_detail = $(agenda_list[i]).find('.agenda-details').val();
-    meeting_agenda.get(agenda_id).proceeding_detail = $(agenda_list[i]).find('.proceeding-details').val();
+    let member_title = $(member_list[i]).find('.member-title').val();
+    let member_name = $(member_list[i]).find('.member-name').val();
+    let member_designation = $(member_list[i]).find('.member-designation').val();
+    member_designation = (member_designation == "Other")? $(member_list[i]).find('.custom-designation').val() : member_designation;
+
+    let member_detail = {
+      title : member_title,
+      name : member_name,
+      designation : member_designation
+    }
+    minute_json.members.push(member_detail);
   }
 
-  //ITERATE RESOLUTION LIST IN THE UI AND POPULATE MEETING AGENDA MAP
-  var resolution_list = $('#resolution-list > .resolution');
-  for(var i=0; i<resolution_list.length; i++)
+  // Meeting Notes
+  let meeting_notes = $('.meeting-note');
+  for(var i=0; i<meeting_notes.length; i++)
+      minute_json.notes.push($(meeting_notes).eq(i).val());
+
+
+  // Meeting Agendas
+  let agendas = $('.agenda');
+  let agenda_len = $(agendas).length;
+  for(let i=0; i<agenda_len; i++)
   {
-    var resolution = {
-      agenda_id : $(resolution_list[i]).find('.res-agenda-id').val(),
-      name : $(resolution_list[i]).find('.name').val(),
-      registration_no : $(resolution_list[i]).find('.registration-no').val(),
-      black_dot : $(resolution_list[i]).find('.black_dot').val(),
-      counseling : $(resolution_list[i]).find('.counseling').val(),
-      yoga_classes : $(resolution_list[i]).find('.yoga_classes').val(),
-      expulsion_from_hostel : $(resolution_list[i]).find('.expulsion_from_hostel').val(),
-      expulsion_from_institute : $(resolution_list[i]).find('.expulsion_from_institute').val(),
-      debarred_f_reg : $(resolution_list[i]).find('.debarred_f_reg').val(),
-      monetary_fine : $(resolution_list[i]).find('.monetary_fine').val(),
-      letter_t_parrents : $(resolution_list[i]).find('.letter_t_parrents').val(),
-      w_letter_t_student : $(resolution_list[i]).find('.w_letter_t_student').val(),
-      other_punishment : $(resolution_list[i]).find('.other_punishment').val()
+    let agenda = {
+      id : i+1,
+      agenda_detail : $(agendas).eq(i).find('.agenda-details').eq(0).val(),
+      proceeding_detail : $(agendas).eq(i).find('.proceeding-details').eq(0).val(),
+      resolutions : []
+    };
+
+    // assemble resolutions of the agendas.
+    let resolutions = $(agendas).eq(i).find('.resolution');
+    let res_len = $(resolutions).length;
+    for(let j=0; j<res_len; j++)
+    {
+      let resolution = {
+        id : j+1,
+        black_dot : $(resolutions).eq(j).find('.black_dot').eq(0).val(),
+        counseling : $(resolutions).eq(j).find('.counseling').eq(0).val(),
+        yoga_class : $(resolutions).eq(j).find('.yoga_classes').eq(0).val(),
+        hostel_expulsion : $(resolutions).eq(j).find('.expulsion_from_hostel').eq(0).val(),
+        institute_expulsion : $(resolutions).eq(j).find('.expulsion_from_institute').eq(0).val(),
+        debar_registratio : $(resolutions).eq(j).find('.debarred_f_reg').eq(0).val(),
+        monetry_fine_status : $(resolutions).eq(j).find('.monetary_fine').eq(0).val(),
+        inform_parents : $(resolutions).eq(j).find('.letter_t_parrents').eq(0).val(),
+        warning_letter : $(resolutions).eq(j).find('.w_letter_t_student').eq(0).val(),
+        other_punishment : $(resolutions).eq(j).find('.other_punishment').eq(0).val(),
+        students : []
+      };
+
+      // assemble students in the resolutions.
+      let students = $(agendas).eq(i).find(resolutions).eq(j).find('.student');
+      let student_len = $(students).length;
+      for(let k = 0; k<student_len; k++)
+      {
+          let student = {
+            name : $(students).eq(k).find('.member-title').eq(0).val() + ' ' + $(students).eq(k).find('.member-name').eq(0).val(),
+            registration_no : $(students).eq(k).find('.student-reg').eq(0).val()
+          };
+          resolution.students.push(student);
+      }
+      agenda.resolutions.push(resolution);
     }
-    // console.log(resolution);
-    meeting_agenda.get(resolution.agenda_id).resolutions.push(resolution);
+    minute_json.agendas.push(agenda);
   }
 }
 function popup(i)
@@ -813,13 +783,8 @@ function popup(i)
 }
 function displayMinutes()
 {
-  if(meeting_agenda.size == 0)
-    alert("Please Add atleast 1 agenda to the meeeting");
-  else
-  {
+  createNewJson();
     popup(0);
-    mapResolutionToAgenda();
     populatePopup();
     console.log(minute_json);
-  }
 }
