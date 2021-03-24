@@ -638,42 +638,34 @@ function populatePopup()
       var student_punishment = `<div class="display-punishment">`;
       if(resolution.black_dot != "")
           student_punishment += `<p><b>Black Dot : </b>`+resolution.black_dot+`</p>`;
+
       if(resolution.counseling != "" && resolution.counseling != "No" )
-      {
         student_punishment += `<p><b>Counseling : </b>`+resolution.counseling+`</p>`;
-      }
+
       if(resolution.yoga_classes != "" && resolution.yoga_classes != "No")
-      {
           student_punishment += `<p><b>Yoga Classes : </b>`+resolution.yoga_classes+`</p>`;
-      }
+
       if(resolution.expulsion_from_hostel != "" && resolution.expulsion_from_hostel != "No")
-      {
           student_punishment += `<p><b>Expulsion From Hostel : </b>`+resolution.expulsion_from_hostel+`</p>`;
-      }
+
       if(resolution.expulsion_from_institute != "" && resolution.expulsion_from_institute != "No")
-      {
           student_punishment += `<p><b>Explusion From Institute : </b>`+resolution.expulsion_from_institute+`</p>`;
-      }
+
       if(resolution.debarred_f_reg != "" && resolution.debarred_f_reg != "No")
-      {
           student_punishment += `<p><b>Debarred From Registration : </b>`+resolution.debarred_f_reg+`</p>`;
-      }
+
       if(resolution.monetary_fine != "" && resolution.monetary_fine != "No")
-      {
           student_punishment += `<p><b>Monetary Fine : </b>`+resolution.monetary_fine+`</p>`;
-      }
+
       if(resolution.letter_t_parrents != "" && resolution.letter_t_parrents != "No")
-      {
           student_punishment += `<p><b>Letter To Parents : </b>`+resolution.letter_t_parrents+`</p>`;
-      }
+
       if(resolution.w_letter_t_student != "" && resolution.w_letter_t_student != "No")
-      {
           student_punishment += `<p><b>Letter To Students : </b>`+resolution.w_letter_t_student+`</p>`;
-      }
+
       if(resolution.other_punishment != "" && resolution.other_punishment != "No")
-      {
           student_punishment += `<p><b>Other Punishments : </b>`+resolution.other_punishment+`</p>`;
-      }
+
       student_punishment += `</div>`;
       resolution_list += `<li class="tile">`+student_info + student_punishment+`</li>`;
     });
