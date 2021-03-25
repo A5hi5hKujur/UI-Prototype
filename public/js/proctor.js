@@ -783,6 +783,7 @@ function printMinutes() {
   });
 
   let margin = 160;
+  let newPageMargin = 260;
 
   minute_json1.agenda.forEach(function (agenda) {
     doc.setFont("times", "bold");
@@ -809,7 +810,8 @@ function printMinutes() {
     margin += 10;
     doc.setFont("times", "italic");
 
-    agenda.resolutions.forEach(function (resolution) {
+
+    agenda.resolutions.forEach(function (resolution,index1) {
       let students = resolution.students;
       console.log(students);
       let stdString = '';
@@ -829,18 +831,81 @@ function printMinutes() {
         stdString += ' are awarded:';
       }
       doc.text(stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-
       
+      margin+=10;
+      doc.setFont("times","bolditalic");
+      if(resolution.black_dot!="no"){
+        doc.text((index1+1)+". "+resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      }
+      else{
+        doc.text((index1+1)+". No Black dot which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      }
+      doc.setFont("times","normal");
+      margin+=10;
+      
+      let indexChar = 97;
+      if(resolution.counseling!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.counseling, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.yoga_classes!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.yoga_classes, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.expulsion_from_hostel!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_hostel, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.expulsion_from_institute!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_institute, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.debarred_f_reg!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.debarred_f_reg, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.monetary_fine!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.monetary_fine, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.letter_t_parrents!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.letter_t_parrents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.w_letter_t_student!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.w_letter_t_student, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      if(resolution.other_punishment!="no"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.other_punishment, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin+=5;
+        indexChar++;
+      }
+      margin+=10;
     });
 
-
+    if(margin>=newPageMargin){
+      doc.addPage();
+      newPageMargin+=margin;
+      margin=10;
+    }
     margin += 15;
   });
 
+  minute_json1.notes.forEach(function(note){
+    doc.text(note, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+    margin+=10;
+  })
+      
 
-
-  let date = new Date();
-  date = date.toDateString();
-  doc.save('Test.pdf'); // save pdf
+  doc.save('Minutes.pdf'); // save pdf
   //------------------------------------------------------------------------------
 }
