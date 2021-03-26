@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Generate Proctor Meeting</title>
+  <link rel="stylesheet" href="public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="stylesheet" href="public/css/proctor.css">
+  <script type="text/javascript" src="public/js/jquery.js"></script>
+  <script type="text/javascript" src="public/js/jquery.min.js"></script>
+  <script type="text/javascript" src="public/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="public/js/bootstrap.min.js"></script>
+
+  <!-- Adding Headers -->
+  <script src="public/js/printHeader.js"></script>
+
+  <!-- Adding jsPDF libraries -->
+  <script src="public/js/jspdf.umd.js"></script>
+  <script src="public/js/jspdf.plugin.autotable.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
+
+  <script type="text/javascript" src="public/js/proctor.js"></script>
+</head>
+
+<body>
+  <!-- Desktop Side bar -->
+  <div class="sidebar">
+    <!-- hamburger -->
+    <div id="nav-icon3">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <!-- End of hamburger -->
+
+    <!-- Desktop Sidemenu list -->
+    <ul class="side-menu">
+      <!-- Home link Icon -->
+      <li>
+        <a href="#">
+          <div class="menu-icon" id="icon-1"></div> <!-- Active Icon -->
+          <p class="menu-option">Home</p>
+        </a>
+      </li>
+      <!-- End of Home link Icon -->
+
+      <!-- Scholarship link Icon -->
+      <li class="scholarship-tab">
+        <ul class="submenu scholarship-tab-submenu">
+          <li><a href="#">Scholarship and Fellowship</a></li>
+          <li><a href="#">Medals and Awards</a></li>
+          <li><a href="#">Insuarance and Mediclaim</a></li>
+          <li><a href="#">Anti-Ragging Initiatve</a></li>
+          <li><a href="#">Counseling and Assistance</a></li>
+        </ul>
+        <a href="#">
+          <div class="menu-icon" id="icon-2"></div>
+          <p class="menu-option">Students Welfare Office</p>
+        </a>
+      </li>
+      <!-- End of Scholarship link Icon -->
+
+      <!-- Proctor link Icon -->
+      <li class="proctor-tab">
+        <ul class="submenu proctor-tab-submenu">
+          <li><a href="#">About Chief Proctor Office</a></li>
+          <li><a href="#">Discipline and Proctorial Board</a></li>
+          <li><a href="#">I-Card and Character Certificate</a></li>
+        </ul>
+        <a href="#">
+          <div class="menu-icon active" id="icon-3"></div>
+          <p class="menu-option">Chief Proctor Office</p>
+        </a>
+      </li>
+      <!-- End of Proctor link Icon -->
+
+      <!-- Warden link Icon -->
+      <li class="warden-tab">
+        <ul class="submenu warden-tab-submenu">
+          <li><a href="#">About Chief Warden Office</a></li>
+          <li><a href="#">Team of Wardens</a></li>
+          <li><a href="#">Hostel Structure</a></li>
+          <li><a href="#">Hostel Management</a></li>
+          <li><a href="#">Mess Management</a></li>
+        </ul>
+        <a href="#">
+          <div class="menu-icon" id="icon-4"></div>
+          <p class="menu-option">Chief Warden Office</p>
+        </a>
+      </li>
+      <!-- End of Warden link icon -->
+
+      <!-- Student link Icon -->
+      <li class="student-tab">
+        <ul class="submenu student-tab-submenu">
+          <li><a href="#">Undertakings and Forms</a></li>
+          <li><a href="#" target="_blank">Student Notice</a></li>
+        </ul>
+        <a href="#">
+          <div class="menu-icon" id="icon-5"></div>
+          <p class="menu-option">Student Activity Office</p>
+        </a>
+      </li>
+      <!-- End of Student link icon -->
+
+      <!-- Gallery link Icon -->
+      <li class="gallery-tab">
+        <ul class="submenu gallery-tab-submenu">
+          <li><a href="#">Institute Gallery</a></li>
+          <li><a href="#">Ek Bharat Shreshtha Bharat Gallery</a></li>
+          <li><a href="#">Voter Awareness Paiting Competition Gallery</a></li>
+        </ul>
+        <a href="#">
+          <div class="menu-icon" id="icon-6"></div>
+          <p class="menu-option">Gallery</p>
+        </a>
+      </li>
+      <!-- End of Gallery link icon -->
+    </ul>
+    <!-- End of Desktop Sidemenu List -->
+  </div>
+  <!-- End of Desktop Side bar -->
+
+  <!-- Right Side Body -->
+  <div class="body">
+    <!-- Logo Header -->
+    <div class="header">
+      <a href="#">
+        <div class="logo"></div>
+      </a>
+      <!-- Profile with submenu -->
+      <div class="profile">
+
+      </div>
+
+
+      <div class="moburger" id="nav-icon3">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+
+      <!-- End of profile with submenu -->
+    </div>
+    <!-- End of Logo Header -->
+
+    <!-- Body Container -->
+    <div class="carousel-grid">
+      <!-- Scholarship and Fellowship section -->
+      <div class="active" id="proctor-section">
+        <section>
+          <h2>Office of the Chief Proctor</h2>
+          <div class="tile about-tile">
+            <h4>About Proctor Board Meeting</h4>
+            <p>
+              This is section would have a brief introduction of the purpose of
+              this page and all the parameters involved while generating a Meeting
+              along with instructions on how to use this module. This page is a
+              prototype to test the "Generate Minutes" functionality of the Proctor
+              Module, The prototype in the current phase is developed only to test
+              the form UI interaction while creating a 'Proctor Board Meeting'.
+              The design and functionalities are subject to change depending upon
+              the feedback and number of iterative development cycles. There may be
+              certain UI glitches here and there which will be resolved upon final
+              release.
+            </p>
+          </div>
+        </section>
+
+        <!-- Meeting Details  -->
+        <section>
+          <div class="tile">
+            <h4>Contact Details</h4>
+            <div class="row">
+              <div class="col-sm-12 col-md-3">
+                <!-- <label for="meeting-id">Meeting ID</label> -->
+                <input type="text" id="meeting-id" placeholder="Meeting ID" value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-3">
+                <!-- <label for="meeting-date">Meeting Date</label> -->
+                <input type="date" id="meeting-date" placeholder="Meeting Date" value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-3">
+                <!-- <label for="meeting-time">Meeting Time</label> -->
+                <input type="time" id="meeting-time" placeholder="Meeting Time" value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-3">
+                <!-- <label for="meeting-venue">Meeting Venue</label> -->
+                <input type="text" id="meeting-venue" placeholder="Meeting Venue" value="" autocomplete="off">
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- End Meeting Details -->
+
+        <!-- Member Details  -->
+        <section>
+          <div class="tile">
+            <h4>Member Details</h4>
+            <div id="member-list">
+              <div class="row">
+                <div class="col-sm-12 col-md-2">
+                  <!-- <label for="meeting-id">Meeting ID</label> -->
+                  <select class="member-title">
+                    <option value="Prof.">Prof.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                  </select>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <!-- <label for="meeting-date">Meeting Date</label> -->
+                  <input type="text" class="member-name" placeholder="Member Name" value="" autocomplete="off">
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <!-- <label for="meeting-time">Meeting Time</label> -->
+                  <select class="member-designation" onclick="checkMemberDesignation(this);">
+                    <option value="Chairperson, Chief Proctor">Chairperson, Chief Proctor</option>
+                    <option value="Member, Women’s Grievance Cell">Member, Women’s Grievance Cell</option>
+                    <option value="Member, Professor In charge Training & Placement">Member, Professor In charge
+                      Training & Placement</option>
+                    <option value="Member, Chairman, SC/ST Cell">Member, Chairman, SC/ST Cell</option>
+                    <option value="Member, Chief Warden (Girls)">Member, Chief Warden (Girls)</option>
+                    <option value="Member, Chief Warden (Boys)">Member, Chief Warden (Boys)</option>
+                    <option value="Member, Proctor (Girl’s)">Member, Proctor (Girl’s)</option>
+                    <option value="Member, Proctor (Boy’s)">Member, Proctor (Boy’s)</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <input class="custom-designation" type="text" placeholder="Enter Designation" value=""
+                    autocomplete="off">
+                </div>
+                <div class="col-sm-12 col-md-2">
+                  <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled"
+                    onclick="removeRow(this, 'member');">Remove Member</button>
+                </div>
+              </div>
+            </div>
+            <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;"
+              onclick="addRow('x', 'member');">Add Another Member</button>
+          </div>
+        </section>
+        <!-- End Member Details -->
+
+        <!-- Meeting Agenda -->
+        <section id="agenda-list">
+          <div class="tile agenda">
+            <div class="meeting-header-agenda">
+              <h4>Meeting Agenda 1</h4>
+              <div class="close-icon" onclick="removeRow(this, 'agenda');"></div>
+            </div>
+
+            <!-- Agenda details -->
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <input type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off">
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <input type="text" class="proceeding-details" placeholder="Proceeding Details" value=""
+                  autocomplete="off">
+              </div>
+            </div>
+            <!-- End of Agenda Details -->
+
+            <!-- Resolution of an agenda -->
+            <div class="resolution-list">
+              <div class="tile resolution">
+                <div class="meeting-header">
+                  <h4>Resolution 1</h4>
+                  <div class="close-icon" onclick="removeRow(this, 'resolution');"></div>
+                </div>
+                <div class="resolution-punishments">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <label>Black Dots</label>
+                      <select class="black_dot">
+                        <option value="" selected>No Black Dot</option>
+                        <option value="One Black Dot">One Black Dot</option>
+                        <option value="Two Black Dot">Two Black Dot</option>
+                        <option value="Three Black Dot">Three Black Dot</option>
+                        <option value="Four Black Dot">Four Black Dot</option>
+                        <option value="Five Black Dot">Five Black Dot</option>
+                      </select>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Counseling</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration"
+                        value="No">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Yoga Classes</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb yoga_classes" type="text"
+                        placeholder="Enter Duration of Yoga Classes" value="No">
+                    </div>
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Hostel Expulsion</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb expulsion_from_hostel" type="text"
+                        placeholder="Enter Duration of Hostel Expulsion" value="No">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Institute Expulsion</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb expulsion_from_institute" type="text"
+                        placeholder="Enter Duration of Institute Expulsion" value="No">
+                    </div>
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Debar Registration</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Monetary Fine</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
+                    </div>
+                    <div class="col-sm-12 col-md-6 select-punishment">
+                      <label>Inform Parents</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb letter_t_parrents" type="text"
+                        placeholder="Enter dispatch number & date of the letters" value="No">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6  select-punishment">
+                      <label>Warning Letter to Student</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb w_letter_t_student" type="text"
+                        placeholder="Enter dispatch number & date of the warning letter" value="No">
+                    </div>
+                    <div class="col-sm-12 col-md-6  select-punishment">
+                      <label>Other Punishment</label>
+                      <select onclick="selectPunishment(this);">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                      <input class="reject-reason-tb other_punishment" type="text"
+                        placeholder="Enter Details about the punishment." value="No">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Add students in a Resolution -->
+                <div class="container">
+                  <h4>Student Details</h4>
+                  <div class="student-list">
+                    <div class="row student">
+                      <div class="col-sm-12 col-md-2">
+                        <select class="member-title">
+                          <option value="Mr.">Mr.</option>
+                          <option value="Ms.">Ms.</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <input type="text" class="student-reg" placeholder="Registration No." value=""
+                          autocomplete="off">
+                      </div>
+                      <div class="col-sm-12 col-md-2">
+                        <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled"
+                          onclick="removeRow(this, 'student');">Remove Student</button>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;"
+                    onclick="addRow(this, 'student');">Add Another Student</button>
+                </div>
+                <!-- End of Adding students in resolution -->
+              </div>
+            </div>
+            <!-- End of Resolution of an agenda -->
+            <button type="button" name="button" class="btn-wide-green" style="width : 230px;"
+              onclick="addRow(this, 'resolution');">Add Resolution</button>
+          </div>
+        </section>
+        <section style="margin : 20px auto 0px auto">
+          <button type="button" name="button" class="btn-wide-green" onclick="addAgenda();">Add Another Agenda</button>
+        </section>
+        <!-- End Meeting Agenda -->
+
+        <!-- Meeting Notes -->
+        <section>
+          <div class="tile">
+            <h4>Meeting Notes</h4>
+            <div id="note-list">
+              <div class="row">
+                <div class="col-sm-10">
+                  <input type="text" class="meeting-note" placeholder="Enter Notes" autocomplete="off">
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" name="button" class="btn-wide-blue remove-note-btn disabled"
+                    onclick="removeRow(this, 'note');">Remove Note</button>
+                </div>
+              </div>
+            </div>
+            <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;"
+              onclick="addRow('x', 'note');">Add Another Note</button>
+          </div>
+        </section>
+        <!-- End Meeting Notes -->
+
+        <!-- Print Meeting Button -->
+        <section>
+          <button type="button" name="button" class="btn-wide-green" onclick="displayMinutes();">Upload Data and
+            Generate Minutes</button>
+        </section>
+        <!-- End Print Meeting Button -->
+
+        <!-- Footer -->
+        <footer>
+          <p class="copyright-content">Copyright © <a href="#" style="color:white;">MNNIT</a> - All Rights Reserved
+            Developed & Maintained By : Web Team</p>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Scholarship and Fellowship section -->
+
+    </div>
+    <!-- End of Body Container -->
+  </div>
+  <!-- End of Right side body -->
+
+  <!-- Overlay and Popups -->
+  <div class="overlay">
+    <div class="generate-minutes">
+      <div class="popup-header">
+        <h4>Sample Data</h4>
+        <div class="close-icon" onclick="popup(0)"></div>
+      </div>
+      <div class="row" id="display-meeting-detail"></div>
+      <div id="display-member-list"></div>
+      <div id="display-agenda-list"></div>
+      <div id="display-notes-list">
+        <h6>Meeting Notes :</h6>
+      </div>
+      <!-- Print Meeting Button -->
+      <section>
+        <button type="button" name="button" class="btn-wide-green" onclick="printMinutes();">Print
+          Minutes</button>
+      </section>
+      <!-- End Print Meeting Button -->
+
+    </div>
+  </div>
+  <!-- End of Overlay and Popups -->
+
+</body>
+<script type="text/javascript" src="public/js/proctor.js"></script>
+
+</html>
