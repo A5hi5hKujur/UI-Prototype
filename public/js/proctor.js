@@ -460,118 +460,118 @@ var minute_json = {
   notes: []
 }
 
-//    SAMPLE JSON DATA for testing :
-var minute_json1 = {
-  agenda:
-    [{
-      id: "1",
-      agenda_detail: "To discuss the case reported by Chief Warden (Girls') entered at No. 21 in the diary of Chief Proctor Office, regarding the late arrival of Ms Jaya. (Reg. No. 20185690 , Room No. 50) and Ms. Sushma (Reg.No. 20185685, KNGH, Room No. 50) in hostel after the purchase and consumption of prohibited items (outside KNGH) on the night of 05/02/2021.",
-      proceeding_detail: "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls') and statements of the concerned students. The members also interacted in person with Ms. and Ms.",
-      resolutions: [{
-        black_dot: "Two Black Dot",
-        counseling: "no",
-        yoga_classes: "Yoga classes (They are required to attend at least 100 yoga classes).",
-        expulsion_from_hostel: "Temporary expulsion from the hostel for one semester Even Semester (2019-2020).",
-        expulsion_from_institute: "no",
-        debarred_f_reg: "Academic probation for Even Semester of Academic session (2019-2020).",
-        monetary_fine: "no",
-        letter_t_parrents: "Information to parents.",
-        w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
-        other_punishment: "no",
-        students: [{
-          registration_no: "20185690",
-          name: "Ms. Jaya"
-        },
-        {
-          registration_no: "20185685",
-          name: "Ms. Sushma"
-        }]
-      }]
-    },
-    {
-      id: "2",
-      agenda_detail: "To discuss the case reported by Chief Warden (Girls') regarding vandalism on campus by Ms  Rekha (Reg.No. 20185689 Room No 11,) in the premises of the hostel.",
-      proceeding_detail: "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls') and statements of the concerned students. The members also interacted in person with Ms. Rekha",
-      resolutions: [{
-        black_dot: "no",
-        counseling: "no",
-        yoga_classes: "no",
-        expulsion_from_hostel: "Temporary expulsion from the hostel for one semester Even Semester (2019-2020).",
-        expulsion_from_institute: "no",
-        debarred_f_reg: "no",
-        monetary_fine: "no",
-        letter_t_parrents: "no",
-        w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
-        other_punishment: "no",
-        students: [{
-          registration_no: "20185690",
-          name: "Ms. Rekha"
-        }]
-      }]
-    }],
-  meeting_date: "2021-03-18",
-  meeting_id: "1",
-  meeting_time: "15:42",
-  meeting_venue: "Office of Chief Proctor",
-  members: [
-    {
-      designation: "Chairperson, Chief Proctor",
-      name: "K.N.Pandey",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Women's Grievance Cell",
-      name: "Geetika",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Professor In charge Training & Placement",
-      name: "Rakesh Narain",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Chairman, SC/ST Cell",
-      name: "A.K. Sachan",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Chief Warden (Girls)",
-      name: "Vijaya Bhaduria",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Proctor (Boy's)",
-      name: "Shiv Dutt Kumar",
-      title: "Prof."
-    },
-    {
-      designation: "Member, Head Physics Department",
-      name: "Animesh Ojha",
-      title: "Dr."
-    },
-    {
-      designation: "Member, Representative of HOD, Mechanical Engineering",
-      name: "R.K. Patel",
-      title: "Dr."
-    },
-    {
-      designation: "Warden KNGH, Special Invitee",
-      name: "Manisha Sachan",
-      title: "Dr."
-    },
-    {
-      designation: "Member, Proctor (Boy's)",
-      name: "Basant Kumar",
-      title: "Dr."
-    },
-    {
-      designation: "Member, Proctor (Girl's)",
-      name: "Shalinee Shukla",
-      title: "Dr."
-    }
-  ],
-  notes: ["The meeting ended with thanks to Chair."]
-};
+// //    SAMPLE JSON DATA for testing :
+// var minute_json1 = {
+//   agenda:
+//     [{
+//       id: "1",
+//       agenda_detail: "To discuss the case reported by Chief Warden (Girls') entered at No. 21 in the diary of Chief Proctor Office, regarding the late arrival of Ms Jaya. (Reg. No. 20185690 , Room No. 50) and Ms. Sushma (Reg.No. 20185685, KNGH, Room No. 50) in hostel after the purchase and consumption of prohibited items (outside KNGH) on the night of 05/02/2021.",
+//       proceeding_detail: "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls') and statements of the concerned students. The members also interacted in person with Ms. and Ms.",
+//       resolutions: [{
+//         black_dot: "Two Black Dot",
+//         counseling: "no",
+//         yoga_classes: "Yoga classes (They are required to attend at least 100 yoga classes).",
+//         expulsion_from_hostel: "Temporary expulsion from the hostel for one semester Even Semester (2019-2020).",
+//         expulsion_from_institute: "no",
+//         debarred_f_reg: "Academic probation for Even Semester of Academic session (2019-2020).",
+//         monetary_fine: "no",
+//         letter_t_parrents: "Information to parents.",
+//         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
+//         other_punishment: "no",
+//         students: [{
+//           registration_no: "20185690",
+//           name: "Ms. Jaya"
+//         },
+//         {
+//           registration_no: "20185685",
+//           name: "Ms. Sushma"
+//         }]
+//       }]
+//     },
+//     {
+//       id: "2",
+//       agenda_detail: "To discuss the case reported by Chief Warden (Girls') regarding vandalism on campus by Ms  Rekha (Reg.No. 20185689 Room No 11,) in the premises of the hostel.",
+//       proceeding_detail: "The members of the Proctorial Board discussed the case with reference to the report submitted by Chief Warden (Girls') and statements of the concerned students. The members also interacted in person with Ms. Rekha",
+//       resolutions: [{
+//         black_dot: "no",
+//         counseling: "no",
+//         yoga_classes: "no",
+//         expulsion_from_hostel: "Temporary expulsion from the hostel for one semester Even Semester (2019-2020).",
+//         expulsion_from_institute: "no",
+//         debarred_f_reg: "no",
+//         monetary_fine: "no",
+//         letter_t_parrents: "no",
+//         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
+//         other_punishment: "no",
+//         students: [{
+//           registration_no: "20185690",
+//           name: "Ms. Rekha"
+//         }]
+//       }]
+//     }],
+//   meeting_date: "2021-03-18",
+//   meeting_id: "1",
+//   meeting_time: "15:42",
+//   meeting_venue: "Office of Chief Proctor",
+//   members: [
+//     {
+//       designation: "Chairperson, Chief Proctor",
+//       name: "K.N.Pandey",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Women's Grievance Cell",
+//       name: "Geetika",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Professor In charge Training & Placement",
+//       name: "Rakesh Narain",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Chairman, SC/ST Cell",
+//       name: "A.K. Sachan",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Chief Warden (Girls)",
+//       name: "Vijaya Bhaduria",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Proctor (Boy's)",
+//       name: "Shiv Dutt Kumar",
+//       title: "Prof."
+//     },
+//     {
+//       designation: "Member, Head Physics Department",
+//       name: "Animesh Ojha",
+//       title: "Dr."
+//     },
+//     {
+//       designation: "Member, Representative of HOD, Mechanical Engineering",
+//       name: "R.K. Patel",
+//       title: "Dr."
+//     },
+//     {
+//       designation: "Warden KNGH, Special Invitee",
+//       name: "Manisha Sachan",
+//       title: "Dr."
+//     },
+//     {
+//       designation: "Member, Proctor (Boy's)",
+//       name: "Basant Kumar",
+//       title: "Dr."
+//     },
+//     {
+//       designation: "Member, Proctor (Girl's)",
+//       name: "Shalinee Shukla",
+//       title: "Dr."
+//     }
+//   ],
+//   notes: ["The meeting ended with thanks to Chair."]
+// };
 // ----------------------
 
 function populatePopup() {
