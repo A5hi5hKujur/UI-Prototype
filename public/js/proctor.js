@@ -120,7 +120,7 @@ function addRow(element, type) {
   else if (type == "note") {
     let new_row = `<div class="row">
       <div class="col-sm-10">
-        <input type="text" class="meeting-note" placeholder="Enter Notes" autocomplete="off">
+        <textarea type="text" class="meeting-note" placeholder="Enter Notes" autocomplete="off" value=""></textarea>
       </div>
       <div class="col-sm-2">
         <button type="button" name="button" class="btn-wide-blue remove-note-btn" onclick="removeRow(this, 'note');">Remove Note</button>
@@ -299,10 +299,10 @@ function addAgenda() {
     <!-- Agenda details -->
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <input type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off">
+        <textarea type="text" class="agenda-details" placeholder="Agenda Details" value="" autocomplete="off"></textarea>
       </div>
       <div class="col-sm-12 col-md-6">
-        <input type="text" class="proceeding-details" placeholder="Proceeding Details" value="" autocomplete="off">
+        <textarea type="text" class="proceeding-details" placeholder="Proceeding Details" value="" autocomplete="off"></textarea>
       </div>
     </div>
     <!-- End of Agenda Details -->

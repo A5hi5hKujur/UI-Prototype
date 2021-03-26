@@ -1164,6 +1164,19 @@ label{
   margin : 0px;
   color : #aaa;
 }
+
+textarea{
+  width : 100%;
+  padding : 0px 10px;
+  height : 90px;
+  margin : 5px 0px;
+  background: #e9ecf0;
+  border : 0px;
+  border-radius: 5px;
+  resize: none;
+}
+
+
 input[type=text], input[type=password], input[type=email],select
 {
   width : 100%;
