@@ -461,7 +461,7 @@ var minute_json = {
 }
 
 // //    SAMPLE JSON DATA for testing :
-// var minute_json1 = {
+// var minute_json = {
 //   agenda:
 //     [{
 //       id: "1",
@@ -754,7 +754,7 @@ function printMinutes() {
   doc.addImage(chief_proctor, 'JPG', 15, 5, 175, 35);  // header image
 
 
-  let heading = `Minutes of the ${minute_json1.meeting_id}th Proctorial Board Meeting held on ${minute_json1.meeting_date} at ${minute_json1.meeting_time} in the ${minute_json1.meeting_venue}.`;
+  let heading = `Minutes of the ${minute_json.meeting_id}th Proctorial Board Meeting held on ${minute_json.meeting_date} at ${minute_json.meeting_time} in the ${minute_json.meeting_venue}.`;
 
   doc.setFont("times", "bold");
   doc.setFontSize(11);
@@ -766,7 +766,7 @@ function printMinutes() {
   doc.text("Following members were present:", 13, 60);
 
   let members = [];
-  minute_json1.members.forEach(function (member, index) {
+  minute_json.members.forEach(function (member, index) {
     let member1 = {
       "SNo": index + 1,
       "Title": member.title,
@@ -785,7 +785,7 @@ function printMinutes() {
   let margin = 160;
   let newPageMargin = 260;
 
-  minute_json1.agenda.forEach(function (agenda) {
+  minute_json.agendas.forEach(function (agenda) {
     doc.setFont("times", "bold");
     doc.text("Agenda:", 13, margin);
     margin += 5;
@@ -900,7 +900,7 @@ function printMinutes() {
     margin += 15;
   });
 
-  minute_json1.notes.forEach(function(note){
+  minute_json.notes.forEach(function(note){
     doc.text(note, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin+=10;
   })
