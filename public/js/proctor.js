@@ -214,7 +214,7 @@ function addRow(element, type) {
                 <option value="no" selected>No</option>
                 <option value="yes">Yes</option>
               </select>
-              <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
+              <input class="reject-reason-tb letter_t_parents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
             </div>
           </div>
 
@@ -391,7 +391,7 @@ function addAgenda() {
                   <option value="no" selected>No</option>
                   <option value="yes">Yes</option>
                 </select>
-                <input class="reject-reason-tb letter_t_parrents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
+                <input class="reject-reason-tb letter_t_parents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
               </div>
             </div>
 
@@ -475,7 +475,7 @@ var minute_json = {
 //         expulsion_from_institute: "no",
 //         debarred_f_reg: "Academic probation for Even Semester of Academic session (2019-2020).",
 //         monetary_fine: "no",
-//         letter_t_parrents: "Information to parents.",
+//         letter_t_parents: "Information to parents.",
 //         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
 //         other_punishment: "no",
 //         students: [{
@@ -500,7 +500,7 @@ var minute_json = {
 //         expulsion_from_institute: "no",
 //         debarred_f_reg: "no",
 //         monetary_fine: "no",
-//         letter_t_parrents: "no",
+//         letter_t_parents: "no",
 //         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
 //         other_punishment: "no",
 //         students: [{
@@ -631,8 +631,8 @@ function populatePopup() {
       if (resolution.monetary_fine != "" && resolution.monetary_fine != "No") {
         student_punishment += `<p><b>Monetary Fine : </b>` + resolution.monetary_fine + `</p>`;
       }
-      if (resolution.letter_t_parrents != "" && resolution.letter_t_parrents != "No") {
-        student_punishment += `<p><b>Letter To Parents : </b>` + resolution.letter_t_parrents + `</p>`;
+      if (resolution.letter_t_parents != "" && resolution.letter_t_parents != "No") {
+        student_punishment += `<p><b>Letter To Parents : </b>` + resolution.letter_t_parents + `</p>`;
       }
       if (resolution.w_letter_t_student != "" && resolution.w_letter_t_student != "No") {
         student_punishment += `<p><b>Letter To Students : </b>` + resolution.w_letter_t_student + `</p>`;
@@ -712,13 +712,13 @@ function createNewJson() {
         id: j + 1,
         black_dot: $(resolutions).eq(j).find('.black_dot').eq(0).val(),
         counseling: $(resolutions).eq(j).find('.counseling').eq(0).val(),
-        yoga_class: $(resolutions).eq(j).find('.yoga_classes').eq(0).val(),
-        hostel_expulsion: $(resolutions).eq(j).find('.expulsion_from_hostel').eq(0).val(),
-        institute_expulsion: $(resolutions).eq(j).find('.expulsion_from_institute').eq(0).val(),
-        debar_registratio: $(resolutions).eq(j).find('.debarred_f_reg').eq(0).val(),
-        monetry_fine_status: $(resolutions).eq(j).find('.monetary_fine').eq(0).val(),
-        inform_parents: $(resolutions).eq(j).find('.letter_t_parrents').eq(0).val(),
-        warning_letter: $(resolutions).eq(j).find('.w_letter_t_student').eq(0).val(),
+        yoga_classes: $(resolutions).eq(j).find('.yoga_classes').eq(0).val(),
+        expulsion_from_hostel: $(resolutions).eq(j).find('.expulsion_from_hostel').eq(0).val(),
+        expulsion_from_institute: $(resolutions).eq(j).find('.expulsion_from_institute').eq(0).val(),
+        debarred_f_reg: $(resolutions).eq(j).find('.debarred_f_reg').eq(0).val(),
+        monetary_fine: $(resolutions).eq(j).find('.monetary_fine').eq(0).val(),
+        letter_t_parents: $(resolutions).eq(j).find('.letter_t_parents').eq(0).val(),
+        w_letter_t_student: $(resolutions).eq(j).find('.w_letter_t_student').eq(0).val(),
         other_punishment: $(resolutions).eq(j).find('.other_punishment').eq(0).val(),
         students: []
       }
@@ -814,7 +814,8 @@ function printMinutes() {
 
     agenda.resolutions.forEach(function (resolution,index1) {
       let students = resolution.students;
-      console.log(students);
+      // console.log(students);
+    
       let stdString = '';
       if (students.length == 1) {
         stdString += students[0].name + ' ( ' + students[0].registration_no + ' )';
@@ -875,8 +876,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      if(resolution.letter_t_parrents!="No"){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.letter_t_parrents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      if(resolution.letter_t_parents!="No"){
+        doc.text(String.fromCharCode(indexChar)+") "+resolution.letter_t_parents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
         margin+=5;
         indexChar++;
       }
