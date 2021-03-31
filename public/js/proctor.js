@@ -655,9 +655,9 @@ function populatePopup() {
   $('#display-agenda-list').html(agendaU);
 
   // Meeting Notes
-  var notes = ``;
-  var meeting_notes = $('.meeting-note');
-  for (var i = 0; i < meeting_notes.length; i++) {
+  let notes = ``;
+  let meeting_notes = $('.meeting-note');
+  for (let i = 0; i < meeting_notes.length; i++) {
     notes += `<p>` + $(meeting_notes).eq(i).val(); +`</p>`
     minute_json.notes.push($(meeting_notes).eq(i).val());
   }
@@ -840,7 +840,7 @@ function printMinutes() {
         doc.text((index1+1)+". "+resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
       else{
-        doc.text((index1+1)+". No Black dot which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        doc.text((index1+1)+". The punishments which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
       doc.setFont("times","normal");
       margin+=10;
