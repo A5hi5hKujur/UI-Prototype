@@ -99,7 +99,7 @@ function addRow(element, type) {
       <div class="col-sm-12 col-md-4">
         <select class="member-designation" onclick="checkMemberDesignation(this);">
           <option value="Chairperson, Chief Proctor">Chairperson, Chief Proctor</option>
-          <option value="Member, Women Grievance Cell">Member, Women’s Grievance Cell</option>
+          <option value="Member, Women's Grievance Cell">Member, Women's Grievance Cell</option>
           <option value="Member, Professor In charge Training & Placement">Member, Professor In charge Training & Placement</option>
           <option value="Member, Chairman, SC/ST Cell">Member, Chairman, SC/ST Cell</option>
           <option value="Member, Chief Warden (Girls)">Member, Chief Warden (Girls)</option>
@@ -137,106 +137,115 @@ function addRow(element, type) {
         <h4>Resolution ${new_res_id}</h4>
         <div class="close-icon" onclick="removeRow(this, 'resolution');"></div>
       </div>
-        <div class="resolution-punishments">
-          <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <label>Black Dots</label>
-              <select class="black_dot">
-                <option value="" selected>No Black Dot</option>
-                <option value="One Black Dot">One Black Dot</option>
-                <option value="Two Black Dot">Two Black Dot</option>
-                <option value="Three Black Dot">Three Black Dot</option>
-                <option value="Four Black Dot">Four Black Dot</option>
-                <option value="Five Black Dot">Five Black Dot</option>
-              </select>
-            </div>
-
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Counseling</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No">
-            </div>
+      <div class="resolution-punishments">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <label>Black Dots</label>
+            <select class="black_dot">
+              <option value="" selected>No Black Dot</option>
+              <option value="One Black Dot">One Black Dot</option>
+              <option value="Two Black Dot">Two Black Dot</option>
+              <option value="Three Black Dot">Three Black Dot</option>
+              <option value="Four Black Dot">Four Black Dot</option>
+              <option value="Five Black Dot">Five Black Dot</option>
+            </select>
           </div>
 
-          <div class="row">
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Yoga Classes</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No">
-            </div>
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Hostel Expulsion</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb expulsion_from_hostel" type="text"  placeholder="Enter Duration of Hostel Expulsion" value="No">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Institute Expulsion</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No">
-            </div>
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Debar Registration</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Monetary Fine</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No">
-            </div>
-            <div class="col-sm-12 col-md-6 select-punishment">
-              <label>Inform Parents</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb letter_t_parents" type="text" placeholder="Enter dispatch number & date of the letters" value="No">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12 col-md-6  select-punishment">
-              <label>Warning Letter to Student</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No">
-            </div>
-            <div class="col-sm-12 col-md-6  select-punishment">
-              <label>Other Punishment</label>
-              <select onclick="selectPunishment(this);">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-              <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No">
-            </div>
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Counseling</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb counseling" placeholder="Enter Councelling Duration." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb counseling" type="text" placeholder="Enter Councelling Duration" value="No"> -->
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Yoga Classes</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb yoga_classes" placeholder="Enter Duration of Yoga Classes." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb yoga_classes" type="text" placeholder="Enter Duration of Yoga Classes" value="No"> -->
+          </div>
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Hostel Expulsion</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb expulsion_from_hostel" placeholder="Enter Duration of Hostel Expulsion." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb expulsion_from_hostel" type="text" placeholder="Enter Duration of Hostel Expulsion" value="No"> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Institute Expulsion</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <!-- <input class="reject-reason-tb expulsion_from_institute" type="text" placeholder="Enter Duration of Institute Expulsion" value="No"> -->
+            <textarea class="reject-reason-tb expulsion_from_institute" placeholder="Enter Details." autocomplete="off">No</textarea>
+          </div>
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Debar Registration</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <!-- <input class="reject-reason-tb debarred_f_reg" type="text" placeholder="Enter Details" value="No"> -->
+            <textarea class="reject-reason-tb debarred_f_reg" placeholder="Enter Details." autocomplete="off">No</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Monetary Fine</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb monetary_fine" placeholder="Enter Amount." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb monetary_fine" type="text" placeholder="Enter Amount" value="No"> -->
+          </div>
+          <div class="col-sm-12 col-md-6 select-punishment">
+            <label>Inform Parents</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb letter_t_parents" placeholder="Enter dispatch number & date of the letters." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb letter_t_parents" type="text" placeholder="Enter dispatch number & date of the letters" value="No"> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6  select-punishment">
+            <label>Warning Letter to Student</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb w_letter_t_student" placeholder="Enter dispatch number & date of the warning letter." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb w_letter_t_student" type="text" placeholder="Enter dispatch number & date of the warning letter" value="No"> -->
+          </div>
+          <div class="col-sm-12 col-md-6  select-punishment">
+            <label>Other Punishment</label>
+            <select onclick="selectPunishment(this);">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <textarea class="reject-reason-tb other_punishment" placeholder="Enter Details about the punishment." autocomplete="off">No</textarea>
+            <!-- <input class="reject-reason-tb other_punishment" type="text" placeholder="Enter Details about the punishment." value="No"> -->
+          </div>
+        </div>
+      </div>
 
         <div class="container">
           <h4>Student Details</h4>
