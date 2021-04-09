@@ -788,7 +788,7 @@ function printMinutes() {
   let members = [];
   minute_json.members.forEach(function (member, index) {
     let member1 = {
-      "SNo": index + 1,
+      "SNo": index + 1+".",
       "Title": member.title,
       "Name": member.name,
       "Designation": member.designation
@@ -802,7 +802,7 @@ function printMinutes() {
     body: members,
   });
 
-  let margin = 70+9*members.length;
+  let margin = 65+9*members.length;
   let newPageMargin = 260;
 
   minute_json.agendas.forEach(function (agenda) {
@@ -812,7 +812,8 @@ function printMinutes() {
 
     doc.setFont("times", "normal");
     doc.text(agenda.agenda_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-    margin += 20;
+    margin += (agenda.agenda_detail.length/180)*9;
+    margin+=5;
 
     doc.setFont("times", "bold");
     doc.text("Proceedings:", 13, margin);
@@ -820,7 +821,8 @@ function printMinutes() {
 
     doc.setFont("times", "normal");
     doc.text(agenda.proceeding_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-    margin += 15;
+    margin += (agenda.proceeding_detail.length/180)*9;
+    margin+=5;
 
     doc.setFont("times", "bold");
     doc.text("Resolution:", 13, margin);
@@ -863,59 +865,106 @@ function printMinutes() {
       }
       doc.setFont("times","normal");
       margin+=10;
-
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
+      }
       let indexChar = 97;
       if(resolution.counseling!="No"&&resolution.counseling!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.counseling, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.counseling.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.yoga_classes!="No"&&resolution.yoga_classes!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.yoga_classes, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.yoga_classes.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.expulsion_from_hostel!="No"&&resolution.expulsion_from_hostel!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_hostel, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.expulsion_from_hostel.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.expulsion_from_institute!="No"&&resolution.expulsion_from_institute!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_institute, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.expulsion_from_institute.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.debarred_f_reg!="No"&&resolution.debarred_f_reg!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.debarred_f_reg, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.debarred_f_reg.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.monetary_fine!="No"&&resolution.monetary_fine!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.monetary_fine, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.monetary_fine.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.letter_t_parents!="No"&&resolution.letter_t_parents!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.letter_t_parents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.letter_t_parents.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       if(resolution.w_letter_t_student!="No"&&resolution.w_letter_t_student!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.w_letter_t_student, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.w_letter_t_student.length/180)*9;
         margin+=5;
         indexChar++;
       }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
+      }
       if(resolution.other_punishment!="No"&&resolution.other_punishment!=""){
         doc.text(String.fromCharCode(indexChar)+") "+resolution.other_punishment, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.other_punishment.length/180)*9;
         margin+=5;
         indexChar++;
+      }
+      if(margin>=newPageMargin){
+        doc.addPage();
+        margin=10;
       }
       margin+=10;
     });
 
     if(margin>=newPageMargin){
       doc.addPage();
-      newPageMargin+=margin;
       margin=10;
     }
     margin += 15;
