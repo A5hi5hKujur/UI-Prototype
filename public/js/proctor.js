@@ -766,7 +766,31 @@ function displayMinutes() {
   populatePopup();
   console.log(minute_json);
 }
-
+function clearJson()
+{
+  minute_json = {
+    meeting_id: undefined,
+    meeting_date: undefined,
+    meeting_time: undefined,
+    meeting_venue: undefined,
+    members: [],
+    agendas: [],
+    notes: []
+  };
+  $('.overlay .generate-minutes').html(`<div class="popup-header">
+                                          <h4>Sample Data</h4>
+                                          <div class="close-icon" onclick="popup(0); clearJson();"></div>
+                                        </div>
+                                        <div class="row" id="display-meeting-detail"></div>
+                                          <div id="display-member-list"></div>
+                                          <div id="display-agenda-list"></div>
+                                          <div id="display-notes-list">
+                                          <h6>Meeting Notes :</h6>
+                                        </div>
+                                        <section>
+                                          <button type="button" name="button" class="btn-wide-green" onclick="printMinutes();">Print Minutes</button>
+                                        </section>`);
+}
 
 function printMinutes() {
   //------------------------ Putting assembled data on the pdf ------------------------------
