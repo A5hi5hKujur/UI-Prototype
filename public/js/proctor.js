@@ -802,7 +802,7 @@ function printMinutes() {
     body: members,
   });
 
-  let margin = 70+10*members.length;
+  let margin = 70+9*members.length;
   let newPageMargin = 260;
 
   minute_json.agendas.forEach(function (agenda) {
