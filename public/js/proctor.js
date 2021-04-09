@@ -830,13 +830,11 @@ function printMinutes() {
     doc.setFont("times", "normal");
     doc.text("The committee members took a serious note of the indisciplinary act done by Ms. and Ms. and resolved the following corrective measures/punishments-", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += 10;
-    doc.setFont("times", "italic");
 
 
     agenda.resolutions.forEach(function (resolution,index1) {
       let students = resolution.students;
       // console.log(students);
-
       let stdString = '';
       if (students.length == 1) {
         stdString += students[0].name + ' ( ' + students[0].registration_no + ' )';
@@ -853,6 +851,7 @@ function printMinutes() {
         });
         stdString += ' are awarded:';
       }
+      doc.setFont("times", "italic");
       doc.text(stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
 
       margin+=10;
@@ -973,7 +972,7 @@ function printMinutes() {
   minute_json.notes.forEach(function(note){
     doc.text(note, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin+=10;
-  })
+  });
 
 
   doc.save('Minutes.pdf'); // save pdf
