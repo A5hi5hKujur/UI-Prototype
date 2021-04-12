@@ -24,14 +24,12 @@ function checkMemberDesignation(element) {
 
 
 //------------------------------- NEW CODE STARTS HERE -------------------------
-function removeRow(element, type)
-{
+function removeRow(element, type) {
   // dont proceed further if the element is disabled.
-  if($(element).hasClass('disabled'))
+  if ($(element).hasClass('disabled'))
     return;
 
-  if (type === 'agenda')
-  {
+  if (type === 'agenda') {
     let agenda_list = $('#agenda-list').children().length;
     if (agenda_list > 1) {
       $(element).closest('.agenda').remove();
@@ -42,8 +40,7 @@ function removeRow(element, type)
     }
     else alert('The meeting MUST have atleast one Agenda');
   }
-  else if (type === 'resolution')
-  {
+  else if (type === 'resolution') {
     let resolution_list = $(element).closest('.resolution-list');
     if ($(resolution_list).children().length > 1) {
       $(element).closest('.resolution').remove();
@@ -54,17 +51,16 @@ function removeRow(element, type)
     }
     else alert('An agenda MUST have atleast one Resolution');
   }
-  else if (type === 'student')
-  {
+  else if (type === 'student') {
     let reg = $(element).closest('.student').find('.student-reg').val();
     // remove student from every resolution in that agenda.
     let resolution_list = $(element).closest('.agenda-student-list').siblings().eq(2);
-    let dropdown_students = $(resolution_list).find('.dropdown-'+reg);
-    let res_students = $(resolution_list).find('.resolution-student-'+reg);
-    $.each(dropdown_students, function(i, dropdown){
+    let dropdown_students = $(resolution_list).find('.dropdown-' + reg);
+    let res_students = $(resolution_list).find('.resolution-student-' + reg);
+    $.each(dropdown_students, function (i, dropdown) {
       $(dropdown).remove();
     });
-    $.each(res_students, function(i, student){
+    $.each(res_students, function (i, student) {
       $(student).remove();
     });
 
@@ -78,8 +74,7 @@ function removeRow(element, type)
       $(student_list).find('.remove-member-btn').addClass('disabled');
 
   }
-  else if (type === 'member')
-  {
+  else if (type === 'member') {
     let isDeleted = false;
     let member_len = $('#member-list').children().length;
     if (member_len > 1) {
@@ -89,8 +84,7 @@ function removeRow(element, type)
     if (isDeleted && member_len - 1 == 1)
       $('#member-list').find('.remove-member-btn').addClass('disabled');
   }
-  else if (type === 'note')
-  {
+  else if (type === 'note') {
     let isDeleted = false;
     let note_len = $('#note-list').children().length;
     if (note_len > 1) {
@@ -100,8 +94,7 @@ function removeRow(element, type)
     if (isDeleted && note_len - 1 == 1)
       $('#note-list').find('.remove-note-btn').addClass('disabled');
   }
-  else if(type == 'res_student')
-  {
+  else if (type == 'res_student') {
     $(element).parent().remove();
   }
 }
@@ -156,8 +149,7 @@ function addRow(element, type) {
     $('.remove-note-btn').removeClass('disabled');
     $('#note-list').append(new_row);
   }
-  else if (type == "resolution")
-  {
+  else if (type == "resolution") {
     let resolution_list = $(element).siblings('.resolution-list');
     let new_res_id = $(resolution_list).children().length + 1;
     let new_resolution = `<div class="tile resolution">
@@ -295,19 +287,16 @@ function addRow(element, type) {
     let res_student_dropdown = $(resolution_list).children().last().find('.res-student');
     let agenda_student_list = $(resolution_list).closest('.agenda').find('.agenda-student-list .student-list').children();
 
-    $.each(agenda_student_list, function(i, student)
-    {
+    $.each(agenda_student_list, function (i, student) {
       let member_reg = $(student).find('.student-reg').val();
       let member_title = $(student).find('.member-title').val();
       let member_name = $(student).find('.member-name').val();
-      $(res_student_dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' +member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
+      $(res_student_dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' + member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
     });
   }
-  else if (type === 'student')
-  {
+  else if (type === 'student') {
     let student_list = $(element).parent().siblings('.student-list');
-    if($(element).parent().find('.btn-wide-blue').length > 0)
-    {
+    if ($(element).parent().find('.btn-wide-blue').length > 0) {
       alert(`Cannot add more student, while the current student slot isn't locked`);
       return;
     }
@@ -527,18 +516,15 @@ function addAgenda() {
   $('#agenda-list').append(new_agenda);
 }
 
-function confirmAgendaStudents(element)
-{
+function confirmAgendaStudents(element) {
   // check and lock new student to agenda.
   let student_list = $(element).parent().siblings('.student-list').eq(0);
   let new_student = $(student_list).children('.student').last();
-  if($(new_student).find('.member-name').val() == "")
-  {
+  if ($(new_student).find('.member-name').val() == "") {
     alert('Please Fill Student name before adding him/her to the agenda.');
     return;
   }
-  if($(new_student).find('.student-reg').val() == "")
-  {
+  if ($(new_student).find('.student-reg').val() == "") {
     alert('Please Fill Student Registration number before adding him/her to the agenda.');
     return;
   }
@@ -554,23 +540,21 @@ function confirmAgendaStudents(element)
   let current_agenda = $(student_list).parent().siblings('.resolution-list').eq(0);
   let resolution_dropdowns = $(current_agenda).find('.res-student');
 
-  $.each(resolution_dropdowns, function(i, dropdown){
-      $(dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' +member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
+  $.each(resolution_dropdowns, function (i, dropdown) {
+    $(dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' + member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
   });
 
   $(element).remove();
 }
 
-function addStudentToResolution(element)
-{
+function addStudentToResolution(element) {
   let selected_student = $(element).closest('.container').find('.res-student option:selected');
   let name = selected_student.data('name');
   let reg = selected_student.data('reg');
   let student_info = $(selected_student).val();
   let student_list = $(element).closest('.container').find('.student-list').eq(0);
 
-  if($(student_list).find('.resolution-student-'+reg).length > 0)
-  {
+  if ($(student_list).find('.resolution-student-' + reg).length > 0) {
     alert('This student has already been added to this resolution.');
     return;
   }
@@ -820,7 +804,7 @@ function createNewJson() {
 
   // Meeting Notes
   let meeting_notes = $('.meeting-note');
-  for (let i = 0; i < meeting_notes.length; i++){
+  for (let i = 0; i < meeting_notes.length; i++) {
     minute_json.notes.push($(meeting_notes).eq(i).val());
   }
 
@@ -864,8 +848,7 @@ function createNewJson() {
       // assemble students in the resolutions.
       let students = $(agendas).eq(i).find(resolutions).eq(j).find('.resolution-student');
       let student_len = $(students).length;
-      for (let k = 0; k < student_len; k++)
-      {
+      for (let k = 0; k < student_len; k++) {
         let student = {
           name: $(students).eq(k).attr('data-name'),
           registration_no: $(students).eq(k).attr('data-reg')
@@ -880,57 +863,47 @@ function createNewJson() {
 function popup(i) {
   $('.overlay').eq(i).toggleClass("active");
 }
-function otherParagraph(element, event)
-{
+function otherParagraph(element, event) {
   // if key pressed is 'Enter' and the element on which it is pressed on is the last element.
-  if(event.code == "Enter" && $(element).is(':last-child'))
-  {
+  if (event.code == "Enter" && $(element).is(':last-child')) {
     $(element).parent().append(`<textarea class="reject-reason-tb other_punishment active" placeholder="Enter Details about the punishment. Press ENTER to create new paragraph." autocomplete="off" onkeyup="otherParagraph(this, event);"></textarea>`);
   }
 }
-function verifyForm()
-{
+function verifyForm() {
   let isValid = true;
   let agendas = $('.agenda');
-  $.each(agendas, function(i, agenda)
-  {
+  $.each(agendas, function (i, agenda) {
     let agenda_list = new Set();
     let res_list = new Set();
 
     let agenda_students = $(agenda).find('.agenda-student-list .student');
-    $.each(agenda_students, function(j, student)
-    {
+    $.each(agenda_students, function (j, student) {
       let reg_no = $(student).find('.student-reg');
       agenda_list.add(reg_no);
     });
 
     let res_students = $(agenda).find('.resolution-student');
-    $.each(res_students, function(j, student)
-    {
-        let reg_no = $(student).attr('data-reg');
-        res_list.add(reg_no);
+    $.each(res_students, function (j, student) {
+      let reg_no = $(student).attr('data-reg');
+      res_list.add(reg_no);
     });
 
-    if(agenda_list.size !== res_list.size)
-    {
-      alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
+    if (agenda_list.size !== res_list.size) {
+      alert('You forgot to add some students from Agenda ' + (i + 1) + ' to the resolutions.');
       isValid = false;
       return false;
     }
-   for(let student of agenda_list)
-   {
-     if(!res_list.has(student))
-     {
-         alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
-         isValid = false;
-         return false;
-     }
-   }
+    for (let student of agenda_list) {
+      if (!res_list.has(student)) {
+        alert('You forgot to add some students from Agenda ' + (i + 1) + ' to the resolutions.');
+        isValid = false;
+        return false;
+      }
+    }
   });
   return isValid;
 }
-function displayMinutes()
-{
+function displayMinutes() {
   let response = verifyForm();
 
   // if(response == false)
@@ -941,8 +914,7 @@ function displayMinutes()
   populatePopup();
   console.log(minute_json);
 }
-function clearJson()
-{
+function clearJson() {
   minute_json = {
     meeting_id: undefined,
     meeting_date: undefined,
@@ -975,43 +947,44 @@ function printMinutes() {
 
   //------ heading code -----
   let heading = `Minutes of the ${minute_json.meeting_id}th Proctorial Board Meeting held on ${minute_json.meeting_date} at ${minute_json.meeting_time} in the ${minute_json.meeting_venue}.`;
-  
+
   doc.setFont("times", "bold");
   doc.setFontSize(11);
-  
-  doc.text(heading, 13, 50);
+
+  // doc.text(heading, 13, 50);
+  doc.text(heading, 13, 50, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
   //------ heading code Ends -----
-  
+
 
   //------ Members Table Code Starts ------
   doc.setFont("times", "normal");
   doc.text("Following members were present:", 13, 60);
-  
+
   let members = [];
 
   //generating members table using members array
   minute_json.members.forEach(function (member, index) {
     let member1 = {
-      "SNo": index + 1+".",
+      "SNo": index + 1 + ".",
       "Title": member.title,
       "Name": member.name,
       "Designation": member.designation
     };
     members.push(member1);
   });
-  
+
   //creating table
   doc.autoTable({
     margin: { top: 65 },
     body: members,
   });
-  
-  let margin = 65+9*members.length;
+
+  let margin = 65 + 9 * members.length;
   //------ Members Table Code Ends------
 
   //New page will be inserted after current margin exceeds 260
   let newPageMargin = 260;
-  
+
   //---- Agenda Code Starts--------
   minute_json.agendas.forEach(function (agenda) {
 
@@ -1019,24 +992,24 @@ function printMinutes() {
     doc.setFont("times", "bold");
     doc.text("Agenda:", 13, margin);
     margin += 5;
-    
+
     doc.setFont("times", "normal");
     doc.text(agenda.agenda_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-    margin += (agenda.agenda_detail.length/180)*9;
-    margin+=5;
+    margin += (agenda.agenda_detail.length / 180) * 9;
+    margin += 5;
     //--------------------------
-    
+
     //--- Proceedings Details ------
     doc.setFont("times", "bold");
     doc.text("Proceedings:", 13, margin);
     margin += 5;
-    
+
     doc.setFont("times", "normal");
     doc.text(agenda.proceeding_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-    margin += (agenda.proceeding_detail.length/180)*9;
-    margin+=5;
+    margin += (agenda.proceeding_detail.length / 180) * 9;
+    margin += 5;
     //-------------------------------
-    
+
     //---- Resolutions -----------
     doc.setFont("times", "bold");
     doc.text("Resolution:", 13, margin);
@@ -1046,7 +1019,7 @@ function printMinutes() {
     margin += 10;
 
     //Iterating over each resolution
-    agenda.resolutions.forEach(function (resolution,index1) {
+    agenda.resolutions.forEach(function (resolution, index1) {
       let students = resolution.students;
       // console.log(students);
 
@@ -1070,143 +1043,152 @@ function printMinutes() {
 
       //printing student's names and registration numbers
       doc.setFont("times", "bolditalic");
-      doc.text((index1+1)+". "+stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      doc.text((index1 + 1) + ". " + stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
 
-      margin+=10;
-      doc.setFont("times","italic");
+      margin += 10;
+      doc.setFont("times", "italic");
 
       //printing punishements given under given resolution
-      if(resolution.black_dot!="No"&&resolution.black_dot!=""){
-        doc.text(resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      if (resolution.black_dot != "No" && resolution.black_dot != "") {
+        doc.text(resolution.black_dot + " which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
-      else{
+      else {
         doc.text("The punishments which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
-      doc.setFont("times","normal");
-      margin+=10;
+      doc.setFont("times", "normal");
+      margin += 10;
 
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
       let indexChar = 97;
-      if(resolution.counseling!="No"&&resolution.counseling!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.counseling, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.counseling.length/180)*9;
-        margin+=5;
+      if (resolution.counseling != "No" && resolution.counseling != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.counseling, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.counseling.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
 
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.yoga_classes!="No"&&resolution.yoga_classes!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.yoga_classes, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.yoga_classes.length/180)*9;
-        margin+=5;
+      if (resolution.yoga_classes != "No" && resolution.yoga_classes != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.yoga_classes, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.yoga_classes.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.expulsion_from_hostel!="No"&&resolution.expulsion_from_hostel!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_hostel, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.expulsion_from_hostel.length/180)*9;
-        margin+=5;
+      if (resolution.expulsion_from_hostel != "No" && resolution.expulsion_from_hostel != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.expulsion_from_hostel, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.expulsion_from_hostel.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.expulsion_from_institute!="No"&&resolution.expulsion_from_institute!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.expulsion_from_institute, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.expulsion_from_institute.length/180)*9;
-        margin+=5;
+      if (resolution.expulsion_from_institute != "No" && resolution.expulsion_from_institute != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.expulsion_from_institute, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.expulsion_from_institute.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.debarred_f_reg!="No"&&resolution.debarred_f_reg!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.debarred_f_reg, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.debarred_f_reg.length/180)*9;
-        margin+=5;
+      if (resolution.debarred_f_reg != "No" && resolution.debarred_f_reg != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.debarred_f_reg, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.debarred_f_reg.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.monetary_fine!="No"&&resolution.monetary_fine!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.monetary_fine, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.monetary_fine.length/180)*9;
-        margin+=5;
+      if (resolution.monetary_fine != "No" && resolution.monetary_fine != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.monetary_fine, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.monetary_fine.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.letter_t_parents!="No"&&resolution.letter_t_parents!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.letter_t_parents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.letter_t_parents.length/180)*9;
-        margin+=5;
+      if (resolution.letter_t_parents != "No" && resolution.letter_t_parents != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.letter_t_parents, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.letter_t_parents.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.w_letter_t_student!="No"&&resolution.w_letter_t_student!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.w_letter_t_student, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.w_letter_t_student.length/180)*9;
-        margin+=5;
+      if (resolution.w_letter_t_student != "No" && resolution.w_letter_t_student != "") {
+        doc.text(String.fromCharCode(indexChar) + ") " + resolution.w_letter_t_student, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        margin += (resolution.w_letter_t_student.length / 180) * 9;
+        margin += 5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      if(resolution.other_punishment!="No"&&resolution.other_punishment!=""){
-        doc.text(resolution.other_punishment, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-        margin += (resolution.other_punishment.length/180)*9;
-        margin+=5;
+      if (resolution.other_punishment != "No" && resolution.other_punishment != "") {
+        let other_punish = resolution.other_punishment.split('\n');
+        other_punish.forEach(function (punish) {
+          doc.text(punish, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+          margin += (punish.length / 180) * 9;
+
+          //check for requirement of new page
+          if (margin >= newPageMargin) {
+            doc.addPage();
+            margin = 10;
+          }
+        });
+        margin += 5;
       }
-      
+
       //check for requirement of new page
-      if(margin>=newPageMargin){
+      if (margin >= newPageMargin) {
         doc.addPage();
-        margin=10;
+        margin = 10;
       }
-      margin+=10;
+      margin += 10;
     });
-    
+
     //----- Resoultions Code Ends Here -------
-    
+
     //check for requirement of new page
-    if(margin>=newPageMargin){
+    if (margin >= newPageMargin) {
       doc.addPage();
-      margin=10;
+      margin = 10;
     }
     margin += 15;
   });
@@ -1214,9 +1196,9 @@ function printMinutes() {
   //------ Agenda code ends --------
 
   //---- Meeting Notes Code --------
-  minute_json.notes.forEach(function(note){
+  minute_json.notes.forEach(function (note) {
     doc.text(note, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
-    margin+=10;
+    margin += 10;
   });
   //---- Meeting Notes Code Ends ------
 
