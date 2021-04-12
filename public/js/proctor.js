@@ -933,8 +933,8 @@ function displayMinutes()
 {
   let response = verifyForm();
 
-  if(response == false)
-    return;
+  // if(response == false)
+  //   return;
 
   createNewJson();
   popup(0);
@@ -967,24 +967,29 @@ function clearJson()
                                         </section>`);
 }
 
+//printMinutes function to print the generated minute pdf using jsPDF
 function printMinutes() {
   //------------------------ Putting assembled data on the pdf ------------------------------
   var doc = new jspdf.jsPDF();  // pdf object
   doc.addImage(chief_proctor, 'JPG', 15, 5, 175, 35);  // header image
 
-
+  //------ heading code -----
   let heading = `Minutes of the ${minute_json.meeting_id}th Proctorial Board Meeting held on ${minute_json.meeting_date} at ${minute_json.meeting_time} in the ${minute_json.meeting_venue}.`;
-
+  
   doc.setFont("times", "bold");
   doc.setFontSize(11);
-
+  
   doc.text(heading, 13, 50);
-  // doc.line(52, 20, 60, 20); // horizontal line
+  //------ heading code Ends -----
+  
 
+  //------ Members Table Code Starts ------
   doc.setFont("times", "normal");
   doc.text("Following members were present:", 13, 60);
-
+  
   let members = [];
+
+  //generating members table using members array
   minute_json.members.forEach(function (member, index) {
     let member1 = {
       "SNo": index + 1+".",
@@ -994,35 +999,45 @@ function printMinutes() {
     };
     members.push(member1);
   });
-
+  
   //creating table
   doc.autoTable({
     margin: { top: 65 },
     body: members,
   });
-
+  
   let margin = 65+9*members.length;
-  let newPageMargin = 260;
+  //------ Members Table Code Ends------
 
+  //New page will be inserted after current margin exceeds 260
+  let newPageMargin = 260;
+  
+  //---- Agenda Code Starts--------
   minute_json.agendas.forEach(function (agenda) {
+
+    //--- Agenda Details ----
     doc.setFont("times", "bold");
     doc.text("Agenda:", 13, margin);
     margin += 5;
-
+    
     doc.setFont("times", "normal");
     doc.text(agenda.agenda_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += (agenda.agenda_detail.length/180)*9;
     margin+=5;
-
+    //--------------------------
+    
+    //--- Proceedings Details ------
     doc.setFont("times", "bold");
     doc.text("Proceedings:", 13, margin);
     margin += 5;
-
+    
     doc.setFont("times", "normal");
     doc.text(agenda.proceeding_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += (agenda.proceeding_detail.length/180)*9;
     margin+=5;
-
+    //-------------------------------
+    
+    //---- Resolutions -----------
     doc.setFont("times", "bold");
     doc.text("Resolution:", 13, margin);
     margin += 5;
@@ -1030,10 +1045,12 @@ function printMinutes() {
     doc.text("The committee members took a serious note of the indisciplinary act done by Ms. and Ms. and resolved the following corrective measures/punishments-", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += 10;
 
-
+    //Iterating over each resolution
     agenda.resolutions.forEach(function (resolution,index1) {
       let students = resolution.students;
       // console.log(students);
+
+      //generating student name string
       let stdString = '';
       if (students.length == 1) {
         stdString += students[0].name + ' ( ' + students[0].registration_no + ' )';
@@ -1050,11 +1067,15 @@ function printMinutes() {
         });
         stdString += ' are awarded:';
       }
+
+      //printing student's names and registration numbers
       doc.setFont("times", "bolditalic");
-      doc.text((index+1)+". "+stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      doc.text((index1+1)+". "+stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
 
       margin+=10;
       doc.setFont("times","italic");
+
+      //printing punishements given under given resolution
       if(resolution.black_dot!="No"&&resolution.black_dot!=""){
         doc.text(resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
@@ -1063,6 +1084,8 @@ function printMinutes() {
       }
       doc.setFont("times","normal");
       margin+=10;
+
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1074,6 +1097,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1084,6 +1109,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1094,6 +1121,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1104,6 +1133,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1114,6 +1145,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1124,6 +1157,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1134,6 +1169,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1144,6 +1181,8 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
@@ -1153,13 +1192,18 @@ function printMinutes() {
         margin += (resolution.other_punishment.length/180)*9;
         margin+=5;
       }
+      
+      //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
         margin=10;
       }
       margin+=10;
     });
-
+    
+    //----- Resoultions Code Ends Here -------
+    
+    //check for requirement of new page
     if(margin>=newPageMargin){
       doc.addPage();
       margin=10;
@@ -1167,12 +1211,15 @@ function printMinutes() {
     margin += 15;
   });
 
+  //------ Agenda code ends --------
+
+  //---- Meeting Notes Code --------
   minute_json.notes.forEach(function(note){
     doc.text(note, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin+=10;
   });
-
+  //---- Meeting Notes Code Ends ------
 
   doc.save('Minutes.pdf'); // save pdf
-  //------------------------------------------------------------------------------
 }
+//------------------------------------------------------------------------------
