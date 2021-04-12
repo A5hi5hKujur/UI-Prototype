@@ -877,8 +877,9 @@ function verifyForm() {
     let res_list = new Set();
 
     let agenda_students = $(agenda).find('.agenda-student-list .student');
-    $.each(agenda_students, function (j, student) {
-      let reg_no = $(student).find('.student-reg');
+    $.each(agenda_students, function(j, student)
+    {
+      let reg_no = $(student).find('.student-reg').val();
       agenda_list.add(reg_no);
     });
 
@@ -887,9 +888,11 @@ function verifyForm() {
       let reg_no = $(student).attr('data-reg');
       res_list.add(reg_no);
     });
-
-    if (agenda_list.size !== res_list.size) {
-      alert('You forgot to add some students from Agenda ' + (i + 1) + ' to the resolutions.');
+    console.log(agenda_list);
+    console.log(res_list);
+    if(agenda_list.size !== res_list.size)
+    {
+      alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
       isValid = false;
       return false;
     }
@@ -906,8 +909,8 @@ function verifyForm() {
 function displayMinutes() {
   let response = verifyForm();
 
-  // if(response == false)
-  //   return;
+  if(response == false)
+    return;
 
   createNewJson();
   popup(0);
