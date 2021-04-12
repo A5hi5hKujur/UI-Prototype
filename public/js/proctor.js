@@ -24,8 +24,14 @@ function checkMemberDesignation(element) {
 
 
 //------------------------------- NEW CODE STARTS HERE -------------------------
-function removeRow(element, type) {
-  if (type === 'agenda') {
+function removeRow(element, type)
+{
+  // dont proceed further if the element is disabled.
+  if($(element).hasClass('disabled'))
+    return;
+
+  if (type === 'agenda')
+  {
     let agenda_list = $('#agenda-list').children().length;
     if (agenda_list > 1) {
       $(element).closest('.agenda').remove();
@@ -36,7 +42,8 @@ function removeRow(element, type) {
     }
     else alert('The meeting MUST have atleast one Agenda');
   }
-  else if (type === 'resolution') {
+  else if (type === 'resolution')
+  {
     let resolution_list = $(element).closest('.resolution-list');
     if ($(resolution_list).children().length > 1) {
       $(element).closest('.resolution').remove();
@@ -47,7 +54,20 @@ function removeRow(element, type) {
     }
     else alert('An agenda MUST have atleast one Resolution');
   }
-  else if (type === 'student') {
+  else if (type === 'student')
+  {
+    let reg = $(element).closest('.student').find('.student-reg').val();
+    // remove student from every resolution in that agenda.
+    let resolution_list = $(element).closest('.agenda-student-list').siblings().eq(2);
+    let dropdown_students = $(resolution_list).find('.dropdown-'+reg);
+    let res_students = $(resolution_list).find('.resolution-student-'+reg);
+    $.each(dropdown_students, function(i, dropdown){
+      $(dropdown).remove();
+    });
+    $.each(res_students, function(i, student){
+      $(student).remove();
+    });
+
     let isDeleted = false;
     let student_list = $(element).closest('.student-list');
     if ($(student_list).children().length > 1) {
@@ -56,8 +76,10 @@ function removeRow(element, type) {
     }
     if (isDeleted && $(student_list).children().length == 1)
       $(student_list).find('.remove-member-btn').addClass('disabled');
+
   }
-  else if (type === 'member') {
+  else if (type === 'member')
+  {
     let isDeleted = false;
     let member_len = $('#member-list').children().length;
     if (member_len > 1) {
@@ -67,7 +89,8 @@ function removeRow(element, type) {
     if (isDeleted && member_len - 1 == 1)
       $('#member-list').find('.remove-member-btn').addClass('disabled');
   }
-  else if (type === 'note') {
+  else if (type === 'note')
+  {
     let isDeleted = false;
     let note_len = $('#note-list').children().length;
     if (note_len > 1) {
@@ -76,6 +99,10 @@ function removeRow(element, type) {
     }
     if (isDeleted && note_len - 1 == 1)
       $('#note-list').find('.remove-note-btn').addClass('disabled');
+  }
+  else if(type == 'res_student')
+  {
+    $(element).parent().remove();
   }
 }
 
@@ -129,7 +156,8 @@ function addRow(element, type) {
     $('.remove-note-btn').removeClass('disabled');
     $('#note-list').append(new_row);
   }
-  else if (type == "resolution") {
+  else if (type == "resolution")
+  {
     let resolution_list = $(element).siblings('.resolution-list');
     let new_res_id = $(resolution_list).children().length + 1;
     let new_resolution = `<div class="tile resolution">
@@ -247,34 +275,43 @@ function addRow(element, type) {
         </div>
       </div>
 
-        <div class="container">
-          <h4>Student Details</h4>
-          <div class="student-list">
-            <div class="row student">
-              <div class="col-sm-12 col-md-2">
-                <select class="member-title">
-                  <option value="Mr.">Mr.</option>
-                  <option value="Ms.">Ms.</option>
-                </select>
-              </div>
-              <div class="col-sm-12 col-md-4">
-                <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
-              </div>
-              <div class="col-sm-12 col-md-4">
-                <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
-              </div>
-              <div class="col-sm-12 col-md-2">
-                <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled" onclick="removeRow(this, 'student');">Remove Student</button>
-              </div>
-            </div>
-          </div>
-          <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+      <!-- Add students in a Resolution -->
+      <div class="container">
+        <h5 style="margin-left : 20px;">Students involved in this resolution :</h5>
+        <div class="student-list">
+          <!-- Students are added here -->
         </div>
-      </div>`;
+        <div class="row">
+          <div class="col-sm-12 col-md-10">
+            <select class="res-student"></select>
+          </div>
+          <div class="col-sm-12 col-md-2">
+            <button type="button" name="button" class="btn-wide-green"  onclick="addStudentToResolution(this);">Add Student</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
     $(resolution_list).append(new_resolution);
+    let res_student_dropdown = $(resolution_list).children().last().find('.res-student');
+    let agenda_student_list = $(resolution_list).closest('.agenda').find('.agenda-student-list .student-list').children();
+
+    $.each(agenda_student_list, function(i, student)
+    {
+      let member_reg = $(student).find('.student-reg').val();
+      let member_title = $(student).find('.member-title').val();
+      let member_name = $(student).find('.member-name').val();
+      $(res_student_dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' +member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
+    });
   }
-  else if (type === 'student') {
-    let student_list = $(element).siblings('.student-list');
+  else if (type === 'student')
+  {
+    let student_list = $(element).parent().siblings('.student-list');
+    if($(element).parent().find('.btn-wide-blue').length > 0)
+    {
+      alert(`Cannot add more student, while the current student slot isn't locked`);
+      return;
+    }
+    $(element).parent().append(`<button type="button" name="button" class="btn-wide-blue" style="width : 230px; margin-top : 30px;" onclick="confirmAgendaStudents(this);">Add Student</button>`);
     let new_student = `<div class="row student">
       <div class="col-sm-12 col-md-2">
         <select class="member-title">
@@ -317,6 +354,37 @@ function addAgenda() {
       </div>
     </div>
     <!-- End of Agenda Details -->
+
+    <!-- Add Students to Agenda -->
+    <div class="agenda-student-list">
+      <h5 style="margin : 20px 0px 10px 20px;">Student involved in this agenda : </h5>
+      <div class="student-list">
+        <div class="row student">
+          <div class="col-sm-12 col-md-2">
+            <select class="member-title">
+              <option value="Mr.">Mr.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <input type="text" class="student-reg" placeholder="Registration No." value=""
+              autocomplete="off">
+          </div>
+          <div class="col-sm-12 col-md-2">
+            <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled"
+              onclick="removeRow(this, 'student');">Remove Student</button>
+          </div>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+        <button type="button" name="button" class="btn-wide-blue" style="width : 230px; margin-top : 30px;" onclick="confirmAgendaStudents(this);">Add Student</button>
+      </div>
+    </div>
+    <!-- End of Add Students to Agenda -->
 
     <!-- Resolution of an agenda -->
     <div class="resolution-list">
@@ -435,37 +503,82 @@ function addAgenda() {
           </div>
         </div>
 
-          <!-- Add students in a Resolution -->
-          <div class="container">
-            <h4>Student Details</h4>
-            <div class="student-list">
-              <div class="row student">
-                <div class="col-sm-12 col-md-2">
-                  <select class="member-title">
-                    <option value="Mr.">Mr.</option>
-                    <option value="Ms.">Ms.</option>
-                  </select>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                  <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
-                </div>
-                <div class="col-sm-12 col-md-4">
-                  <input type="text" class="student-reg" placeholder="Registration No." value="" autocomplete="off">
-                </div>
-                <div class="col-sm-12 col-md-2">
-                  <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled" onclick="removeRow(this, 'student');">Remove Student</button>
-                </div>
-              </div>
-            </div>
-            <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+        <!-- Add students in a Resolution -->
+        <div class="container">
+          <h5 style="margin-left : 20px;">Students involved in this resolution :</h5>
+          <div class="student-list">
+            <!-- Students are added here -->
           </div>
-          <!-- End of Adding students in resolution -->
+          <div class="row">
+            <div class="col-sm-12 col-md-10">
+              <select class="res-student"></select>
+            </div>
+            <div class="col-sm-12 col-md-2">
+              <button type="button" name="button" class="btn-wide-green"  onclick="addStudentToResolution(this);">Add Student</button>
+            </div>
+          </div>
+        </div>
+        <!-- End of Adding students in resolution -->
         </div>
     </div>
   <!-- End of Resolution of an agenda -->
     <button type="button" name="button" class="btn-wide-green" style="width : 230px;" onclick="addRow(this, 'resolution');">Add Resolution</button>
   </div>`;
   $('#agenda-list').append(new_agenda);
+}
+
+function confirmAgendaStudents(element)
+{
+  // check and lock new student to agenda.
+  let student_list = $(element).parent().siblings('.student-list').eq(0);
+  let new_student = $(student_list).children('.student').last();
+  if($(new_student).find('.member-name').val() == "")
+  {
+    alert('Please Fill Student name before adding him/her to the agenda.');
+    return;
+  }
+  if($(new_student).find('.student-reg').val() == "")
+  {
+    alert('Please Fill Student Registration number before adding him/her to the agenda.');
+    return;
+  }
+  let member_title = $(new_student).find('.member-title').val();
+  let member_name = $(new_student).find('.member-name').val();
+  let member_reg = $(new_student).find('.student-reg').val();
+
+  $(new_student).find('.member-title').prop('disabled', true);
+  $(new_student).find('.member-name').prop('disabled', true);
+  $(new_student).find('.student-reg').prop('disabled', true);
+
+  // add new student to all the drop downlist of the agenda.
+  let current_agenda = $(student_list).parent().siblings('.resolution-list').eq(0);
+  let resolution_dropdowns = $(current_agenda).find('.res-student');
+
+  $.each(resolution_dropdowns, function(i, dropdown){
+      $(dropdown).append(`<option class="dropdown-${member_reg}" value="${member_title + ' ' + member_name + ' ' + member_reg}" data-name="${member_title + ' ' +member_name}" data-reg="${member_reg}">${member_title + ' ' + member_name + ' (' + member_reg + ')'}</option>`);
+  });
+
+  $(element).remove();
+}
+
+function addStudentToResolution(element)
+{
+  let selected_student = $(element).closest('.container').find('.res-student option:selected');
+  let name = selected_student.data('name');
+  let reg = selected_student.data('reg');
+  let student_info = $(selected_student).val();
+  let student_list = $(element).closest('.container').find('.student-list').eq(0);
+
+  if($(student_list).find('.resolution-student-'+reg).length > 0)
+  {
+    alert('This student has already been added to this resolution.');
+    return;
+  }
+  $(student_list).append(`<div class="resolution-student resolution-student-${reg}" data-name="${name}" data-reg="${reg}">
+                            <p>${student_info}</p>
+                            <div class="close-icon" onclick="removeRow(this, 'res_student');"></div>
+                          </div>`);
+
 }
 //------------------------------- NEW CODE ENDS HERE ---------------------------
 
@@ -522,7 +635,7 @@ var minute_json = {
 //         monetary_fine: "no",
 //         letter_t_parents: "no",
 //         w_letter_t_student: "Warning letter for their involvement in the act of indiscipline.",
-//         other_punishment: "no",
+//         other_punishment: ["no"],
 //         students: [{
 //           registration_no: "20185690",
 //           name: "Ms. Rekha"
@@ -742,13 +855,20 @@ function createNewJson() {
         students: []
       }
 
+      // assemble other punishments paragraphs via multiple textbox code.
+      // let other_punishments = $(resolutions).eq(j).find('.other_punishment');
+      // $.each(other_punishments, function(idx, paragraph){
+      //   resolution.other_punishment.push($(paragraph).val());
+      // });
+
       // assemble students in the resolutions.
-      let students = $(agendas).eq(i).find(resolutions).eq(j).find('.student');
+      let students = $(agendas).eq(i).find(resolutions).eq(j).find('.resolution-student');
       let student_len = $(students).length;
-      for (let k = 0; k < student_len; k++) {
+      for (let k = 0; k < student_len; k++)
+      {
         let student = {
-          name: $(students).eq(k).find('.member-title').eq(0).val() + ' ' + $(students).eq(k).find('.member-name').eq(0).val(),
-          registration_no: $(students).eq(k).find('.student-reg').eq(0).val()
+          name: $(students).eq(k).attr('data-name'),
+          registration_no: $(students).eq(k).attr('data-reg')
         };
         resolution.students.push(student);
       }
@@ -760,7 +880,62 @@ function createNewJson() {
 function popup(i) {
   $('.overlay').eq(i).toggleClass("active");
 }
-function displayMinutes() {
+function otherParagraph(element, event)
+{
+  // if key pressed is 'Enter' and the element on which it is pressed on is the last element.
+  if(event.code == "Enter" && $(element).is(':last-child'))
+  {
+    $(element).parent().append(`<textarea class="reject-reason-tb other_punishment active" placeholder="Enter Details about the punishment. Press ENTER to create new paragraph." autocomplete="off" onkeyup="otherParagraph(this, event);"></textarea>`);
+  }
+}
+function verifyForm()
+{
+  let isValid = true;
+  let agendas = $('.agenda');
+  $.each(agendas, function(i, agenda)
+  {
+    let agenda_list = new Set();
+    let res_list = new Set();
+
+    let agenda_students = $(agenda).find('.agenda-student-list .student');
+    $.each(agenda_students, function(j, student)
+    {
+      let reg_no = $(student).find('.student-reg');
+      agenda_list.add(reg_no);
+    });
+
+    let res_students = $(agenda).find('.resolution-student');
+    $.each(res_students, function(j, student)
+    {
+        let reg_no = $(student).attr('data-reg');
+        res_list.add(reg_no);
+    });
+
+    if(agenda_list.size !== res_list.size)
+    {
+      alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
+      isValid = false;
+      return false;
+    }
+   for(let student of agenda_list)
+   {
+     if(!res_list.has(student))
+     {
+         alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
+         isValid = false;
+         return false;
+     }
+   }
+  });
+  return isValid;
+}
+function displayMinutes()
+{
+  let response = verifyForm();
+
+  if(response == false)
+    return;
+
   createNewJson();
   popup(0);
   populatePopup();

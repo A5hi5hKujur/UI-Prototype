@@ -267,6 +267,37 @@
             </div>
             <!-- End of Agenda Details -->
 
+            <!-- Add Students to Agenda -->
+            <div class="agenda-student-list">
+              <h5 style="margin : 20px 0px 10px 20px;">Student involved in this agenda : </h5>
+              <div class="student-list">
+                <div class="row student">
+                  <div class="col-sm-12 col-md-2">
+                    <select class="member-title">
+                      <option value="Mr.">Mr.</option>
+                      <option value="Ms.">Ms.</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-12 col-md-4">
+                    <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
+                  </div>
+                  <div class="col-sm-12 col-md-4">
+                    <input type="text" class="student-reg" placeholder="Registration No." value=""
+                      autocomplete="off">
+                  </div>
+                  <div class="col-sm-12 col-md-2">
+                    <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled"
+                      onclick="removeRow(this, 'student');">Remove Student</button>
+                  </div>
+                </div>
+              </div>
+              <div class="button-wrapper">
+                <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;" onclick="addRow(this, 'student');">Add Another Student</button>
+                <button type="button" name="button" class="btn-wide-blue" style="width : 230px; margin-top : 30px;" onclick="confirmAgendaStudents(this);">Add Student</button>
+              </div>
+            </div>
+            <!-- End of Add Students to Agenda -->
+
             <!-- Resolution of an agenda -->
             <div class="resolution-list">
               <div class="tile resolution">
@@ -386,30 +417,18 @@
 
                 <!-- Add students in a Resolution -->
                 <div class="container">
-                  <h4>Student Details</h4>
+                  <h5 style="margin-left : 20px;">Students involved in this resolution :</h5>
                   <div class="student-list">
-                    <div class="row student">
-                      <div class="col-sm-12 col-md-2">
-                        <select class="member-title">
-                          <option value="Mr.">Mr.</option>
-                          <option value="Ms.">Ms.</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-12 col-md-4">
-                        <input type="text" class="member-name" placeholder="Student Name" value="" autocomplete="off">
-                      </div>
-                      <div class="col-sm-12 col-md-4">
-                        <input type="text" class="student-reg" placeholder="Registration No." value=""
-                          autocomplete="off">
-                      </div>
-                      <div class="col-sm-12 col-md-2">
-                        <button type="button" name="button" class="btn-wide-blue remove-member-btn disabled"
-                          onclick="removeRow(this, 'student');">Remove Student</button>
-                      </div>
+                    <!-- Students are added here -->
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-10">
+                      <select class="res-student"></select>
+                    </div>
+                    <div class="col-sm-12 col-md-2">
+                      <button type="button" name="button" class="btn-wide-green"  onclick="addStudentToResolution(this);">Add Student</button>
                     </div>
                   </div>
-                  <button type="button" name="button" class="btn-wide-green" style="width : 230px; margin-top : 30px;"
-                    onclick="addRow(this, 'student');">Add Another Student</button>
                 </div>
                 <!-- End of Adding students in resolution -->
               </div>
