@@ -900,7 +900,7 @@ function verifyForm()
     let agenda_students = $(agenda).find('.agenda-student-list .student');
     $.each(agenda_students, function(j, student)
     {
-      let reg_no = $(student).find('.student-reg');
+      let reg_no = $(student).find('.student-reg').val();
       agenda_list.add(reg_no);
     });
 
@@ -910,7 +910,8 @@ function verifyForm()
         let reg_no = $(student).attr('data-reg');
         res_list.add(reg_no);
     });
-
+    console.log(agenda_list);
+    console.log(res_list);
     if(agenda_list.size !== res_list.size)
     {
       alert('You forgot to add some students from Agenda '+(i+1)+ ' to the resolutions.');
@@ -933,8 +934,8 @@ function displayMinutes()
 {
   let response = verifyForm();
 
-  // if(response == false)
-  //   return;
+  if(response == false)
+    return;
 
   createNewJson();
   popup(0);
@@ -975,18 +976,18 @@ function printMinutes() {
 
   //------ heading code -----
   let heading = `Minutes of the ${minute_json.meeting_id}th Proctorial Board Meeting held on ${minute_json.meeting_date} at ${minute_json.meeting_time} in the ${minute_json.meeting_venue}.`;
-  
+
   doc.setFont("times", "bold");
   doc.setFontSize(11);
-  
+
   doc.text(heading, 13, 50);
   //------ heading code Ends -----
-  
+
 
   //------ Members Table Code Starts ------
   doc.setFont("times", "normal");
   doc.text("Following members were present:", 13, 60);
-  
+
   let members = [];
 
   //generating members table using members array
@@ -999,19 +1000,19 @@ function printMinutes() {
     };
     members.push(member1);
   });
-  
+
   //creating table
   doc.autoTable({
     margin: { top: 65 },
     body: members,
   });
-  
+
   let margin = 65+9*members.length;
   //------ Members Table Code Ends------
 
   //New page will be inserted after current margin exceeds 260
   let newPageMargin = 260;
-  
+
   //---- Agenda Code Starts--------
   minute_json.agendas.forEach(function (agenda) {
 
@@ -1019,24 +1020,24 @@ function printMinutes() {
     doc.setFont("times", "bold");
     doc.text("Agenda:", 13, margin);
     margin += 5;
-    
+
     doc.setFont("times", "normal");
     doc.text(agenda.agenda_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += (agenda.agenda_detail.length/180)*9;
     margin+=5;
     //--------------------------
-    
+
     //--- Proceedings Details ------
     doc.setFont("times", "bold");
     doc.text("Proceedings:", 13, margin);
     margin += 5;
-    
+
     doc.setFont("times", "normal");
     doc.text(agenda.proceeding_detail, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
     margin += (agenda.proceeding_detail.length/180)*9;
     margin+=5;
     //-------------------------------
-    
+
     //---- Resolutions -----------
     doc.setFont("times", "bold");
     doc.text("Resolution:", 13, margin);
@@ -1109,7 +1110,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1121,7 +1122,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1133,7 +1134,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1145,7 +1146,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1157,7 +1158,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1169,7 +1170,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1181,7 +1182,7 @@ function printMinutes() {
         margin+=5;
         indexChar++;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1192,7 +1193,7 @@ function printMinutes() {
         margin += (resolution.other_punishment.length/180)*9;
         margin+=5;
       }
-      
+
       //check for requirement of new page
       if(margin>=newPageMargin){
         doc.addPage();
@@ -1200,9 +1201,9 @@ function printMinutes() {
       }
       margin+=10;
     });
-    
+
     //----- Resoultions Code Ends Here -------
-    
+
     //check for requirement of new page
     if(margin>=newPageMargin){
       doc.addPage();
