@@ -1165,7 +1165,7 @@ function printMinutes() {
         other_punish.forEach(function (punish) {
           doc.text(punish, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
           margin += (punish.length / 180) * 9;
-
+          margin += 5;
           //check for requirement of new page
           if (margin >= newPageMargin) {
             doc.addPage();
