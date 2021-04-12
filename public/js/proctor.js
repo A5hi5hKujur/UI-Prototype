@@ -1050,16 +1050,16 @@ function printMinutes() {
         });
         stdString += ' are awarded:';
       }
-      doc.setFont("times", "italic");
-      doc.text(stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+      doc.setFont("times", "bolditalic");
+      doc.text((index+1)+". "+stdString, 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
 
       margin+=10;
-      doc.setFont("times","bolditalic");
+      doc.setFont("times","italic");
       if(resolution.black_dot!="No"&&resolution.black_dot!=""){
-        doc.text((index1+1)+". "+resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        doc.text(resolution.black_dot+" which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
       else{
-        doc.text((index1+1)+". The punishments which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        doc.text("The punishments which will include:", 20, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
       }
       doc.setFont("times","normal");
       margin+=10;
@@ -1149,10 +1149,9 @@ function printMinutes() {
         margin=10;
       }
       if(resolution.other_punishment!="No"&&resolution.other_punishment!=""){
-        doc.text(String.fromCharCode(indexChar)+") "+resolution.other_punishment, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
+        doc.text(resolution.other_punishment, 25, margin, { align: 'left', maxWidth: '180', lineHeightFactor: '2' });
         margin += (resolution.other_punishment.length/180)*9;
         margin+=5;
-        indexChar++;
       }
       if(margin>=newPageMargin){
         doc.addPage();
